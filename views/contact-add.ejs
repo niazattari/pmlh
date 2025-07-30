@@ -1,0 +1,48 @@
+<%- include('header-after.ejs') %>
+
+<div class="container mt-5" id="form-myDiv">
+  <form id="myForm" class="row g-3" action="/contact-add/addNewUser" method="post" enctype="multipart/form-data">
+    <h1 class="display-6 text-center mb-4">Registration</h1>
+    <div class="col-md-6">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" name="name" id="name" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label for="fatherName" class="form-label">Father Name</label>
+      <input type="text" name="fatherName" id="fatherName" class="form-control" required>
+    </div>
+    <div class="col-md-6">
+      <label for="contactNo" class="form-label">Contact Number / Whatsapp Number </label>
+      <input type="text" name="contactNo" id="contactNo" class="form-control">
+    </div>
+    <div class="col-md-6">
+      <label for="email" class="form-label">Email</label>
+      <input type="email" name="email" id="email" class="form-control">
+    </div>
+    <div class="col-md-6">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" name="password" id="password" class="form-control">
+    </div>
+    <!-- <div class="col-md-6">
+      <label for="country" class="form-label">Country</label>
+      <input type="text" name="country" id="country" class="form-control">
+    </div> -->
+    <!-- <div class="col-md-6">
+      <label for="qualification" class="form-label">Qualification</label>
+      <input type="text" name="qualification" id="qualification" class="form-control">
+    </div> -->
+    <div class="col-md-6">
+      <label for="profileImage" class="form-label">Profile Image</label>
+      <input type="file" name="profileImage" id="profileImage" class="form-control" required>
+    </div>
+    <!-- <div class="col-12">
+      <label for="address" class="form-label">Postal address for Certificate</label>
+      <textarea type="text" name="address" id="address" class="form-control"></textarea>
+    </div> -->
+    <div class="col-12 text-center mt-4">
+      <button type="submit" class="btn btn-primary me-2">Submit</button>
+      <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
+    </div>
+  </form>
+</div>
+<%- include('footer.ejs') %>

@@ -1,0 +1,73 @@
+<section class="our-courses" id="courses">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2">
+        <div class="section-heading">
+
+
+          <h6>OUR COURSES</h6>
+          <h4>What You Can <em>Learn</em></h4>
+          <p id="course-main-heading">PMLH offering Blended learning, as well as a customizable framework of global accreditations and
+            credentials. PMLH blends unique content with blended learning methodologies that are aligned to major global
+            frameworks, allowing students to acquire SDC Canada, IAPM (International Association of Project Managers)
+            European accreditations/certifications.</p>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="naccs">
+          <div class="tabs">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="menu">
+                  <!-- <div class="active gradient-border"><span>Project Planning with Primavera P6</span></div>
+                  <div class="gradient-border"><span>Project Planning with MS Project</span></div>
+                  <div class="gradient-border"><span>Quality Management</span></div>
+                  <div class="gradient-border"><span>Construction Cost Estimation</span></div> -->
+                  <% myPosts.forEach(function(post, index){ %>
+                    <div class="gradient-border <%= index === 0 ? 'active' : '' %>">
+                      <span>
+                        <%= post.title %>
+                      </span>
+                    </div>
+                    <% }); %>
+
+
+                </div>
+              </div>
+              <div class="col-lg-9">
+                <ul class="nacc">
+                  <% myPosts.forEach(function(post, index){ %>
+                    <li class="<%= index === 0 ? 'active' : '' %>">
+                      <div>
+                        <div class="left-image">
+                          <img src="../uploads/<%=post.image%>" alt="">
+
+                        </div>
+                        <div class="right-content">
+                          <h4>
+                            <%= post.title %>
+                          </h4>
+                          <p>
+                            <%= post.description %>
+                          </p>
+                          <span>72 Hours</span>
+                          <span>12 Weeks</span>
+                          <span class="last-span"><a href="/contact-add">Register</a></span>
+                          <div class="text-button">
+                            <a href="/course/single/<%= post._id %>">More Information</a>
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </li>
+                    <% }); %>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

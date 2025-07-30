@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>ADMIN Panel</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <!-- Custom stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/header-navbar.css">
+
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div id="header-admin">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <!-- LOGO -->
+                <div class="col-md-2">
+                    <a href="/admin/post"><img class="logo" src="/images/logo.png"></a>
+                </div>
+                <!-- /LOGO -->
+                <!-- LOGO-Out -->
+                <div class="col-md-offset-9  col-md-1">
+                    <a href="/admin/logout" class="admin-logout">logout</a>
+                </div>
+                <!-- /LOGO-Out -->
+            </div>
+        </div>
+    </div>
+    <!-- /HEADER -->
+    <!-- Menu Bar -->
+    <div id="admin-menubar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-default navbar-mobile bootsnav on">
+                        <div class="navbar- header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#navbar-menu">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbar-menu">
+                            <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
+                                <li class="active"><a href="/admin/post" data-hover="Home">Summary <span
+                                            data-hover="Home"></span></a></li>
+                                <li><a href="/admin/post" data-hover="About">Posts <span data-hover="About"></span></a>
+                                </li>
+                                <li><a href="/admin/category" data-hover="About">Catagories <span
+                                            data-hover="About"></span></a></li>
+                                <li><a href="/admin/users" data-hover="About">Users <span data-hover="About"></span></a>
+                                </li>
+                                <li><a href="/admin/comments" data-hover="About">Comments <span
+                                            data-hover="About"></span></a></li>
+                                <li><a href="/admin/contacts" data-hover="About">Registration <span
+                                            data-hover="About"></span></a></li>
+                                <li><a href="/admin/messages" data-hover="About">Messages <span
+                                            data-hover="About"></span></a></li>
+                                <li><a href="/admin/messages" data-hover="About">Certificates <span
+                                            data-hover="About"></span></a></li>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="admin-menu">
+                        <li>
+                            <a href="/admin/post">Post</a>
+                        </li>
+                        <li>
+                            <a href="/admin/category">Category</a>
+                        </li>
+                        <li>
+                            <a href="/admin/users">Users</a>
+                        </li>
+                        <li>
+                            <a href="/admin/comments">Comment</a>
+                        </li>
+                        <li>
+                            <a href="/admin/contacts">Registration</a>
+                        </li>
+                        <li>
+                            <a href="/admin/messages">Contact Us / Messages</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <!-- /Menu Bar -->

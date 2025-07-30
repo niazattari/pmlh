@@ -1,0 +1,72 @@
+<!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/assets/js/isotope.min.js"></script>
+    <script src="/assets/js/owl-carousel.js"></script>
+    <script src="/assets/js/video-carousel.js"></script>
+    <script src="/assets/js/lightbox.js"></script>
+    <script src="/assets/js/tabs.js"></script>
+     
+     
+    <script src="/assets/js/slick-slider.js"></script>
+    <script src="/assets/js/custom.js"></script>
+     
+       
+
+    <!-- JavaScript files for Slick Carousel -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+	<!-- JavaScript code to initialize Slick Carousel -->
+	<script>
+		$('.video-carousel').slick({
+			arrows: true,
+       
+			dots: true,
+			infinite: true,
+			speed: 500,
+			slidesToShow: 1,
+			centerMode: true,
+			variableWidth: true
+		});
+	</script>
+
+  <!-- Place this where you want the counter to appear -->
+<div id="visitor-count"></div>
+
+<!-- Add this JavaScript code at the bottom of your page -->
+<script>
+  // Retrieve the visitor count from a database or API
+  const getVisitorCount = async () => {
+    const response = await fetch('https://your-visitor-counter-api.com/count');
+    const data = await response.json();
+    return data.count;
+  };
+
+  // Update the visitor count on the page
+  const updateVisitorCount = async () => {
+    const visitorCount = await getVisitorCount();
+    const visitorCountElement = document.getElementById('visitor-count');
+    visitorCountElement.innerHTML = `You are visitor number ${visitorCount}!`;
+  };
+
+  // Call the update function when the page loads
+  updateVisitorCount();
+</script>
+
+</body>
+
+</html>
+<!-- <div id ="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <span>© Copyright 2025 | Powered by <a href="http://www.pmlh.org">PMLH Project Management Learning Hub</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html> -->

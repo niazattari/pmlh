@@ -1,0 +1,32 @@
+
+<%- include('header') %>
+  <div id="admin-content">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <h1 class="admin-heading">Add New Category</h1>
+              </div>
+              <div class="col-md-offset-3 col-md-6">
+               
+                  <!-- Form Start -->
+                  <form action="/admin/category" method="POST" autocomplete="off">
+                      <div class="form-group">
+                          <label for="category">Category Name</label>
+                          <input type="text" id="category" name="name" class="form-control" placeholder="Category Name" maxlength="20" required>
+                      </div>
+                      <% if (errors && errors.length > 0) { %>
+                        <ul style="color: red;">
+                            <% errors.forEach(error => { %>
+                                <li><%= error.msg %></li>
+                            <% }) %>
+                        </ul>
+                    <% } %>
+                      <input type="submit" name="save" class="btn btn-primary" value="Save" required />
+                  </form>
+                  <!-- /Form End -->
+              </div>
+          </div>
+      </div>
+  </div>
+  <%- include('footer') %>
+

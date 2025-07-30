@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="PMLH Project Management Learning Hub">
+  <meta name="author" content="PMLH">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <title>PMLH Project Management Learning Hub</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/bootstrap.min`.css">
+  <link rel="stylesheet" href="/css/font-awesome.css">
+  <link rel="stylesheet" href="/css/contact-list-styles.css">
+  <link rel="stylesheet" href="/css/main-header.css">
+  <link rel="stylesheet" href="/css/coursera-style.css">
+  <!-- Bootstrap core CSS -->
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Additional CSS Files -->
+  <link rel="stylesheet" href="/assets/css/fontawesome.css">
+  <link rel="stylesheet" href="/assets/css/templatemo-eduwell-style.css">
+  <link rel="stylesheet" href="/assets/css/owl.css">
+  <link rel="stylesheet" href="/assets/css/lightbox.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    /* CSS for video carousel container */
+    .video-carousel {
+      width: 68%;
+      margin: 0 auto;
+    }
+
+    /* CSS for video carousel slides */
+    .video-slide {
+      text-align: center;
+      margin: 0 5px;
+    }
+
+    /* CSS for video iframe */
+    iframe {
+      width: 100%;
+      height: 315px;
+    }
+
+    .user-info {
+      background: rgba(0, 0, 0, 0.4);
+      /* Subtle transparent background */
+      backdrop-filter: blur(6px);
+      transition: all 0.3s ease;
+    }
+
+    .user-info img:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-user {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 6px 12px;
+      border-radius: 30px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+      transition: background 0.3s ease;
+    }
+
+    .navbar-user:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .navbar-user .user-name strong {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .navbar-user .user-avatar img:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-user .user-avatar img {
+      border: 2px solid #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+  <!--
+TemplateMo 573 EduWell
+https://templatemo.com/tm-573-eduwell
+-->
+</head>
+
+<body>
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky" role="header">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="/" class="logo">
+              <img src="/assets/images/pmlh logo.png" alt="PMLH Logo">
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li class="scroll-to-section important"><a href="/" class="active"><i class="fas fa-home"></i> Home</a>
+              </li>
+              <li class="scroll-to-section hide-on-small"><a href="#services"><i class="fas fa-handshake"></i>
+                  Association</a></li>
+              <li class="scroll-to-section important"><a href="#courses"><i class="fas fa-book-open"></i> Courses</a>
+              </li>
+              <li class="scroll-to-section"><a href="#testimonials" class="hide-on-small"><i
+                    class="fas fa-comment-dots"></i> Testimonials</a></li>
+              <li class="scroll-to-section important"><a href="#webinar"><i class="fas fa-video"></i> Webinars</a></li>
+              <li class="scroll-to-section hide-on-small"><a href="#contact-section"><i class="fas fa-envelope"></i>
+                  Contact Us</a></li>
+              <% if (user) { %>
+                <li class="scroll-to-section important">
+                  <a href="/user/logout"><i class="fas fa-user-plus"></i> Logout</a>
+                </li> 
+                <% } else { %>
+                  <li class="scroll-to-section important">
+                    <a href="/user/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                  </li>
+                  <% } %>
+            </ul>
+            <!-- ***** Menu End ***** -->
+            <!-- ***** Menu End ***** -->
+
+            <!-- USER PROFILE DISPLAY (TOP RIGHT) -->
+            <div class="navbar-user d-flex align-items-center gap-3"
+              style="position: absolute; top: 15px; right: 25px;">
+              <div class="user-name text-end">
+                <% if (typeof user !=='undefined' && user) { %>
+                  <small class="text-light">Welcome</small><br>
+                  <strong class="text-white">
+                    <%= user.name %>
+                  </strong>
+                  <% } else { %>
+                    <small class="text-light">Welcome</small><br>
+                    <strong class="text-white">Guest</strong>
+                    <% } %>
+              </div>
+
+              <div class="user-avatar">
+                <img
+                  src="<%= user && user.profileImage ? ('/uploads/' + user.profileImage) : '/assets/images/default-user.png' %>"
+                  alt="User" width="48" height="48" class="rounded-circle border border-white shadow"
+                  style="object-fit: cover;">
+              </div>
+            </div>
+
+
+
+
+
+
+            <a class='menu-trigger'>
+              <a class='menu-trigger'>
+                <span>Menu</span>
+              </a>
+              <!-- ***** Menu End ***** -->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->

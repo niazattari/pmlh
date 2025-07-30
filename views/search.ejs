@@ -1,0 +1,58 @@
+<%- include('header') %>
+    <div id="main-content">
+      <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- post-container -->
+                <div class="post-container">
+                        <% if (locals.searchPost.length > 0) { %>
+                    <h2 class="page-heading">Search : <%= search %></h2> 
+                         <% searchPost.forEach(post => { %>
+                            <div class="post-content">
+                                <div class="row">                           
+                                        <div class="col-md-4">
+                                            <a class="post-img" href="/single/<%= post._id %>"><img src="/uploads/<%= post.image %>" alt=""/></a>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="inner-content clearfix">
+                                                <h3><a href='/single/<%= post._id %>'><%= post.title %></a></h3>
+                                                <div class="post-information">
+                                                    <span>
+                                                        <i class="fa fa-tags" aria-hidden="true"></i>
+                                                        <a href='/category/<%= post.category.name %>'><%= post.category.name %></a>
+                                                    </span>
+                                                    <span>
+                                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                                        <a href='/author/<%= post.user.username %>'><%= post.user.username %></a>
+                                                    </span>
+                                                    <span>
+                                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                        <!-- 01 Nov, 2019 -->
+                                                        <%= post.formattedDate %>
+                                                    </span>
+                                                </div>
+                                                <p class="description">
+                                                    <%= post.description.length > 70 ? post.description.substring(0, 150) + '...' : post.description %>
+
+                                                    <!-- <%= post.description %> -->
+                                                </p>
+                                                <a class='read-more pull-right' href='/single/<%= post._id %>'>read more</a>
+                                            </div>
+                                        </div>                 
+                                </div>
+                            </div>
+                         <% }) %>
+                        <% } else { %>
+                         <h3>No Post Found</h3>
+                     
+                         <% }%>
+                       
+                    
+                    
+                </div><!-- /post-container -->
+            </div>
+            <%- include('sidebar') %>
+        </div>
+      </div>
+    </div>
+<%- include('footer') %>

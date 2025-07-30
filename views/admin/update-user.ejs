@@ -1,0 +1,33 @@
+<%- include('header') %>
+  <div id="admin-content">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12">
+                  <h1 class="admin-heading">Modify User Details</h1>
+              </div>
+              <div class="col-md-offset-4 col-md-4">
+                
+
+                  <!-- Form Start -->
+                  <form  action="/admin/users/<%= user.id %>" method ="POST">
+                      <div class="form-group">
+                          <input type="hidden"  class="form-control" value="<%= user._id %>" placeholder="" >
+                      </div>
+                      <div class="form-group">
+                          <label for="name">User Name</label>
+                          <input type="text" id="name" name="username" class="form-control" value="<%= user.username %>" placeholder="" required>
+                      </div>
+                      <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="email" id="email" name="email" class="form-control" value="<%= user.email %>" placeholder="" required>
+                      </div>
+                      
+                      
+                      <input type="submit" name="submit" class="btn btn-primary" value="Update" required />
+                  </form>
+                  <!-- /Form -->
+              </div>
+          </div>
+      </div>
+  </div>
+  <%- include('footer') %>

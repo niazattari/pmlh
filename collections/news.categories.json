@@ -1,0 +1,52 @@
+[{
+  "_id": {
+    "$oid": "6777f8b86f1036a1b1bfd036"
+  },
+  "name": "Sports",
+  "createdAt": {
+    "$date": "2025-01-03T14:48:24.426Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-03T14:48:24.426Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6777f8c26f1036a1b1bfd03a"
+  },
+  "name": "Business",
+  "createdAt": {
+    "$date": "2025-01-03T14:48:34.994Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-03T14:48:34.994Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6777f8d16f1036a1b1bfd03e"
+  },
+  "name": "Politics",
+  "createdAt": {
+    "$date": "2025-01-03T14:48:49.569Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-03T14:48:49.569Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6777f8d76f1036a1b1bfd042"
+  },
+  "name": "Entertainment",
+  "createdAt": {
+    "$date": "2025-01-03T14:48:55.711Z"
+  },
+  "updatedAt": {
+    "$date": "2025-01-03T14:48:55.711Z"
+  },
+  "__v": 0
+}]

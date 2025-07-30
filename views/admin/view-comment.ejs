@@ -1,0 +1,53 @@
+
+<%- include('header') %>
+    <div id="admin-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10">
+                    <h1 class="admin-heading">Comment Detail</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-offset-4 col-md-6">
+                    <p><strong>Name:</strong> <%= comment.name %></p>
+                    <p><strong>Email:</strong> <%= comment.email %></p>
+                    <p><strong>Description:</strong></p>
+                    <p><%= comment.description %></p>
+                    <p><strong>Date:</strong> <%= new Date(comment.date).toLocaleDateString() %></p>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-offset-4 col-md-6">
+                    <table cellpadding="10px" width="90%" style="margin: 0 0 20px;">
+                    <tr>
+                      <td> Name : </td>
+                      <td><b>
+                          <%# comment.name %>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td>Email : </td>
+                      <td><b>
+                          <%# comment.email %>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td>Description : </td>
+                      <td><b>
+                          <%# comment.description %>
+                        </b></td>
+                    </tr>
+                    <tr>
+                      <td>Date : </td>
+                      <td><b>
+                        <%#new Date(comment.date).toLocaleDateString() %>
+                        </b></td>
+                    </tr> 
+                    </table>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+    <%- include('footer') %>
+    

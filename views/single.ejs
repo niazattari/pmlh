@@ -1,0 +1,262 @@
+<%- include('header') %>
+
+  <div id="main-content">
+    <div class="container">
+      <div class="row">
+
+        <!-- Left: Course Details (8 columns) -->
+        <div class="col-lg-8 col-md-12">
+          <!-- post-container -->
+          <div class="post-container">
+            <div class="post-content single-post">
+              <h3>
+                <%= singlePost.title %>
+              </h3>
+
+              <div class="post-information">
+                <span class="post-tag">
+                  <i class="fa fa-tags"></i>
+                  <a href="/category/<%= singlePost.category.name %>">
+                    <%= singlePost.category.name %>
+                  </a>
+                </span>
+                <span class="post-author">
+                  <i class="fa fa-user"></i>
+                  <a href="/author/<%= singlePost.user.username %>">
+                    <%= singlePost.user.username %>
+                  </a>
+                </span>
+                <span class="post-date">
+                  <i class="fa fa-calendar"></i>
+                  <%= singlePost.formattedDate %>
+                </span>
+              </div>
+
+              <div class="single-image-details-card text-center mb-3">
+                <img class="single-feature-image-small mb-2" src="/uploads/<%= singlePost.image %>"
+                  alt="<%= singlePost.title %>" />
+
+                <ul class="list-group text-left mb-2 course-details-list">
+                  <li class="list-group-item"><i class="fa fa-book"></i><span><strong>Name:</strong>
+                      <%= singlePost.title %>
+                    </span></li>
+                  <li class="list-group-item"><i class="fa fa-tags"></i><span><strong>Category:</strong>
+                      <%= singlePost.category.name %>
+                    </span></li>
+                  <li class="list-group-item"><i class="fa fa-user"></i><span><strong>Instructor:</strong>
+                      <%= singlePost.user.username %>
+                    </span></li>
+                  <li class="list-group-item"><i class="fa fa-clock-o"></i><span><strong>Duration:</strong> 12
+                      Weeks</span></li>
+                  <li class="list-group-item"><i class="fa fa-users"></i><span><strong>Total Enrolments:</strong>
+                      <%= singlePost.totalEnrolment || 'N/A' %>
+                    </span></li>
+                  <li class="list-group-item"><i class="fa fa-calendar"></i><span><strong>Start Date:</strong>
+                      <%= singlePost.startDate || 'TBA' %>
+                    </span></li>
+                  <li class="list-group-item"><i class="fa fa-language"></i><span><strong>Language:</strong>
+                      <%= singlePost.language || 'English' %>
+                    </span></li>
+                  <li class="list-group-item"><i class="fa fa-signal"></i><span><strong>Level:</strong>
+                      <%= singlePost.level || 'Beginner' %>
+                    </span></li>
+                  <li class="list-group-item"><i class="fa fa-desktop"></i><span><strong>Mode:</strong>
+                      <%= singlePost.mode || 'Online' %>
+                    </span></li>
+                  <li class="list-group-item"><i class="fa fa-money"></i><span><strong>Fee:</strong>
+                      <%= singlePost.fee || 'Free' %>
+                    </span></li>
+                  <li class="list-group-item"><i class="fa fa-sign-in"></i>
+                    <a href="/register-course/<%= singlePost._id %>" class="btn btn-success btn-sm ml-2"
+                      style="font-weight:600;">
+                      Register for Course
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <p class="description">
+                <%= singlePost.description %>
+              </p>
+            </div>
+          </div>
+
+          <!-- Comment Section -->
+          <div class="comment-container mt-5">
+            <h4 class="mb-4 text-primary">
+              <i class="fa fa-comments-o me-2"></i> Comments
+            </h4>
+
+            <% if (singlePost?.comment?.length) { %>
+              <% singlePost.comment.forEach(comment=> { %>
+                <div class="card mb-3 shadow-sm">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center mb-2">
+                      <i class="fa fa-user-circle fa-lg text-secondary me-2"></i>
+                      <h6 class="mb-0">
+                        <%= comment.name %>
+                      </h6>
+                      <small class="text-muted ms-auto">
+                        <i class="fa fa-calendar me-1"></i>
+                        <%= new Date(comment.date).toLocaleDateString() %>
+                      </small>
+                    </div>
+                    <p class="mb-0 text-muted">
+                      <%= comment.description %>
+                    </p>
+                  </div>
+                </div>
+                <% }) %>
+                  <% } else { %>
+                    <p class="text-muted">No comments yet. Be the first to comment!</p>
+                    <% } %>
+          </div>
+
+          <!-- Comment Form -->
+          <div class="comment-form mt-5 p-4 bg-light rounded shadow-sm">
+            <h5 class="mb-4">
+              <i class="fa fa-pencil-square-o me-2 text-primary"></i>Leave a Comment
+            </h5>
+
+            <form action="/course/single/<%= singlePost._id %>" method="POST" autocomplete="off">
+              <input type="hidden" name="postId" value="<%= singlePost._id %>">
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label"><i class="fa fa-user-o me-1"></i> Name</label>
+                  <input type="text" name="name" class="form-control" placeholder="Enter your name" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label"><i class="fa fa-envelope-o me-1"></i> Email</label>
+                  <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label"><i class="fa fa-commenting-o me-1"></i> Comment</label>
+                  <textarea name="description" class="form-control" rows="5" placeholder="Write your comment here..."
+                    required></textarea>
+                </div>
+                <div class="col-12 text-end">
+                  <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-paper-plane me-1"></i> Submit Comment
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <%- include('sidebar') %>
+      </div>
+    </div>
+  </div>
+
+  <%- include('footer') %>
+
+    <!-- Custom Styles -->
+    <style>
+      .single-image-details-card {
+        background: #fff;
+        box-shadow: 0 4px 24px rgba(15, 181, 19, 0.08);
+        padding: 18px 8px 8px 8px;
+        margin-bottom: 0;
+      }
+
+      .single-feature-image-small {
+        height: 400px;
+        object-fit: cover;
+        border: 3px solid #0fb513;
+        box-shadow: 0 2px 8px rgba(15, 181, 19, 0.10);
+        background: #fff;
+        margin-bottom: 8px;
+        margin-top: 8px;
+        padding: 4px;
+        border-radius: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .course-details-list .list-group-item {
+        border: none;
+        background: transparent;
+        font-size: 1.08rem;
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .course-details-list .list-group-item:last-child {
+        border-bottom: none;
+      }
+
+      .course-details-list .fa {
+        font-size: 1.18rem;
+        min-width: 26px;
+        text-align: center;
+        color: #0fb513;
+        background: #e6ffe6;
+        border-radius: 8px;
+        padding: 6px;
+        margin-right: 10px;
+      }
+
+      .course-details-list span,
+      .course-details-list a {
+        color: #222;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        font-family: 'Segoe UI', 'Arial', sans-serif;
+        margin-left: 6px;
+      }
+
+      .course-details-list strong {
+        color: #007bff;
+        font-weight: 700;
+      }
+
+      .course-details-list a.btn-success {
+        font-size: 1rem;
+        padding: 5px 18px;
+        border-radius: 20px;
+        background: linear-gradient(90deg, #0fb513 0%, #007bff 100%);
+        border: none;
+        transition: background 0.2s;
+      }
+
+      .course-details-list a.btn-success:hover {
+        background: linear-gradient(90deg, #007bff 0%, #0fb513 100%);
+      }
+
+      .post-information {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        font-size: 14px;
+        color: #555;
+        margin-top: 10px;
+      }
+
+      .post-information span {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .post-information i {
+        color: #888;
+      }
+
+      .comment-container {
+        border-top: 2px solid #dee2e6;
+        padding-top: 20px;
+      }
+
+      .comment-form {
+        background-color: #f9f9f9;
+      }
+
+      .recent-posts a:hover {
+        color: #0d6efd;
+        text-decoration: underline;
+      }
+    </style>

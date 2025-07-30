@@ -1,0 +1,529 @@
+<section class="contact-us" id="contact-section">
+  <div class="container">
+    <div class="row">
+      <!-- Map and contact info -->
+      <div class="col-lg-8">
+        <div id="map">
+          <iframe src="https://www.google.com/maps/embed?pb=..." width="100%" height="420px" frameborder="0"
+            allowfullscreen=""></iframe>
+        </div>
+        <div class="row contact-info-row">
+          <div class="col-md-6">
+            <div class="contact-info-box">
+              <div class="icon">
+                <i class="fa fa-phone"></i>
+              </div>
+              <div class="info-text">
+                <h4>Phone</h4>
+                <p>+92-310-4271115</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="contact-info-box">
+              <div class="icon">
+                <i class="fa fa-envelope"></i>
+              </div>
+              <div class="info-text">
+                <h4>Email</h4>
+                <p>info@pmlh.org</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Contact form -->
+      <div class="col-lg-4">
+        <form id="contact" action="/message/addNewMessage" method="post">
+          <div class="section-heading">
+            <h6>Contact Us</h6>
+            <h4>Say <em>Hello</em></h4>
+            <p>If you need more information about our courses, use the form below.</p>
+          </div>
+
+          <div class="form-group">
+            <i class="fa fa-user"></i>
+            <input type="text" name="name" id="name" placeholder="Full Name" required>
+          </div>
+
+          <div class="form-group">
+            <i class="fa fa-envelope"></i>
+            <input type="email" name="email" id="email" placeholder="Email Address" required>
+          </div>
+
+          <div class="form-group">
+            <i class="fa fa-comment"></i>
+            <textarea name="message" id="message" placeholder="Your Message" required></textarea>
+          </div>
+
+          <button type="submit" class="main-gradient-button">Send Message</button>
+        </form>
+
+      </div>
+
+      <!-- Social and Footer -->
+      <div class="col-lg-12">
+  <ul class="social-icons">
+    <li><a href="https://www.facebook.com/PMLearningHub/"><i class="fa fa-facebook"></i></a></li>
+    <li><a href="https://www.linkedin.com/company/pmlearninghub/"><i class="fa fa-linkedin"></i></a></li>
+    <li><a href="https://www.youtube.com/@projectmanagementlearninghub"><i class="fa fa-youtube"></i></a></li>
+    <li><a href="https://www.instagram.com/pmlearninghub/"><i class="fa fa-instagram"></i></a></li>
+  </ul>
+</div>
+
+
+      <div class="col-lg-12 text-center mt-3">
+        <p class="copyright">© 2023 PMLH Project Management Learning Hub. All Rights Reserved.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Contact Section Styles */
+  .contact-us {
+    background: #f9f9fb;
+    padding: 80px 0;
+    position: relative;
+  }
+
+  .contact-us .section-heading h4 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .contact-us .section-heading h6 {
+    font-size: 16px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .contact-us .section-heading p {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 30px;
+  }
+
+  .contact-info {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+
+  .contact-info .icon {
+    font-size: 28px;
+    color: #6c63ff;
+    margin-bottom: 10px;
+  }
+
+  .contact-info h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .contact-info span {
+    font-size: 14px;
+    color: #666;
+  }
+
+  #contact input,
+  #contact textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 18px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    background: #fff;
+    transition: all 0.3s ease;
+  }
+
+  #contact input:focus,
+  #contact textarea:focus {
+    border-color: #6c63ff;
+    outline: none;
+  }
+
+  #contact textarea {
+    height: 120px;
+    resize: vertical;
+  }
+
+  #contact .main-gradient-button {
+    background: linear-gradient(to right, #6c63ff, #aa68fe);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  #contact .main-gradient-button:hover {
+    background: linear-gradient(to right, #5a52d4, #9b50fc);
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 30px;
+  }
+
+  .social-icons li {
+    list-style: none;
+  }
+
+  .social-icons a {
+    display: inline-block;
+    font-size: 20px;
+    color: #6c63ff;
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 50%;
+    transition: 0.3s;
+  }
+
+  .social-icons a:hover {
+    background: #6c63ff;
+    color: #fff;
+    border-color: #6c63ff;
+  }
+
+  .contact-us iframe {
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  .contact-us {
+    background: #f8faff;
+    padding: 80px 0 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact-us .section-heading h6 {
+    color: #6a11cb;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+
+  .contact-us .section-heading h4 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .contact-us .section-heading p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 20px;
+  }
+
+  form#contact {
+    background: #ffffff;
+    border: 1px solid #dcdcdc;
+    border-radius: 18px;
+    padding: 35px 30px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+  }
+
+  form#contact:hover {
+    box-shadow: 0 8px 28px rgba(106, 17, 203, 0.1);
+  }
+
+  form#contact input,
+  form#contact textarea {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: border 0.2s;
+  }
+
+  form#contact input:focus,
+  form#contact textarea:focus {
+    border-color: #6a11cb;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(106, 17, 203, 0.1);
+  }
+
+  form#contact textarea {
+    height: 130px;
+    resize: vertical;
+  }
+
+  * {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  form#contact {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    padding: 40px 30px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  }
+
+  .section-heading {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .section-heading h6 {
+    color: #6a11cb;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .section-heading h4 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 10px;
+    color: #333;
+  }
+
+  .section-heading p {
+    font-size: 15px;
+    color: #777;
+    margin-top: 8px;
+  }
+
+  .form-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px 18px 12px 45px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 15px;
+    color: #333;
+    transition: 0.3s;
+    background-color: #fdfdfd;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: #6a11cb;
+    outline: none;
+    box-shadow: 0 0 5px rgba(106, 17, 203, 0.15);
+  }
+
+  .form-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #888;
+  }
+
+  form#contact textarea {
+    height: 120px;
+    resize: vertical;
+  }
+
+  .main-gradient-button {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    padding: 12px 26px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    transition: 0.3s ease-in-out;
+  }
+
+  .main-gradient-button:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+  }
+
+
+  .main-gradient-button {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    padding: 12px 26px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .main-gradient-button:hover {
+    background: linear-gradient(to right, #2575fc, #6a11cb);
+  }
+
+  .contact-info {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    text-align: center;
+    margin-top: 30px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  }
+
+  .contact-info .icon {
+    font-size: 28px;
+    color: #6a11cb;
+    margin-bottom: 10px;
+  }
+
+  .contact-info h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .contact-info span {
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  ul.social-icons {
+    text-align: center;
+    margin-top: 40px;
+    padding: 0;
+    list-style: none;
+  }
+
+  ul.social-icons li {
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  ul.social-icons li a {
+    font-size: 18px;
+    color: #6a11cb;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+  }
+
+  ul.social-icons li a:hover {
+    color: #fff;
+    background-color: #6a11cb;
+    transform: scale(1.1);
+  }
+
+  .contact-us .copyright {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.95rem;
+    color: #999;
+  }
+
+
+  @media (max-width: 991px) {
+    .contact-info {
+      margin: 10px auto;
+    }
+
+    #contact {
+      margin-top: 40px;
+    }
+  }
+  .contact-info-row {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.contact-info-box {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: 0.3s ease;
+}
+
+.contact-info-box:hover {
+  background: #fff;
+  transform: translateY(-3px);
+}
+
+.contact-info-box .icon {
+  width: 50px;
+  height: 50px;
+  background-color: #4a90e2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  margin-right: 15px;
+}
+
+.contact-info-box .info-text h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+}
+
+.contact-info-box .info-text p {
+  margin: 3px 0 0;
+  font-size: 15px;
+  color: #666;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px 0;
+  list-style: none;
+}
+
+.social-icons li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+  color: #444;
+  font-size: 20px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+.social-icons li a:hover {
+  background-color: #4a90e2;
+  color: white;
+  transform: scale(1.1);
+}
+
+</style>

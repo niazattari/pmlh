@@ -1,0 +1,15 @@
+﻿/*
+Project Name: News Site
+File: Licence
+Author: Yahoo Baba
+Author URL: https://www.yahoobaba.net
+License: GNU GPLv3
+License URL:  https://www.gnu.org/licenses/gpl-3.0.en.html
+*/
+
+
+* You can not offer our premium projects for re-distribution or re-sale.
+
+* You can not claim intellectual property rights or exclusive ownership to any of our premium projects, modified or unmodified. All premium projects are the property of Yahoo Baba.
+
+* Credit links for third party CSS & JavaScript files which are used in premium project are on premium project page. 

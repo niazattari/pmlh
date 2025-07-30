@@ -1,0 +1,47 @@
+<div id="sidebar" class="col-md-4">
+    <!-- search box -->
+    <div class="search-box-container">
+        <h4>Search</h4>
+        <form class="search-post" action="/search" method="GET">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search .....">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-danger">Search</button>
+                </span>
+            </div>
+        </form>
+    </div>
+    <!-- /search box -->
+    <!-- recent posts box -->
+    <div class="recent-post-container">
+        <h4>Recent Posts</h4>
+
+        <% posts.forEach((post, i)=> { %>
+            <% if ((post.category.name==='Courses' || post.category.name==='Webinar' ) && i < 4) { %>
+                <div class="recent-post">
+                    <a class="post-img" href="/course/single/<%= post._id %>">
+                        <img src="/uploads/<%= post.image %>" alt="" />
+                    </a>
+                    <div class="post-content">
+                        <h5><a href="/course/single/<%= post._id %>">
+                                <%= post.title %>
+                            </a></h5>
+                        <span>
+                            <i class="fa fa-tags" aria-hidden="true"></i>
+                            <a href='/course/category/<%= post.category.name %>'>
+                                <%= post.category.name %>
+                            </a>
+                        </span>
+                        <span>
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <%= post.formattedDate %>
+                        </span>
+                        <a class="read-more" href="/course/single/<%= post._id %>">read more</a>
+                    </div>
+                </div>
+                <% } %>
+                    <% }) %>
+
+    </div>
+    <!-- /recent posts box -->
+</div>

@@ -1,0 +1,115 @@
+<%- include('header.ejs', { page: 'user' }) %>
+  <link rel="stylesheet" href="/css/contact-list-styles.css">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10">
+        <div class=" panel">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-sm-5 col-xs-12">
+                <h4 class="title">Catagories <span>List</span></h4>
+              </div>
+              <div class="col-sm-7 col-xs-12 text-right">
+                <div class="btn_group">
+                  <span class="label label-danger">Filter:</span>
+                  <button type="button" class="btn btn-warning" title="Blocked"><i class="fa fa-ban"></i></button>
+                  <button type="button" class="btn btn-success" title="Active"><i
+                      class="fa fa-check-square"></i></button>
+                </div>
+                <a href="/admin/add-category" class="btn add-new" target="_blank"><i class="fa fa-plus-circle"></i>
+                  Add New Catagory
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <th>S.No.</th>
+                <th>Category Name</th>
+                <th>No. of Posts</th>
+                <th>Actions</th>
+                
+              </thead>
+              <tbody>
+
+                <% categories.forEach(function(category,index){ %>
+                  <tr>
+                    <td class='id'>
+                      <%= offset + index + 1 %>
+                    </td>
+                    <td>
+                      <%= category.name %>
+                    </td>
+                    <td>
+                      <%= category.postLength %>
+                    </td>
+                    <!-- <td class='edit'><a href='/admin/update-category/<%= category._id %>'><i class='fa fa-edit'></i></a>
+                    </td>
+                    <td class='delete'>
+                      <% if (category.postLength <! 0 ) { %>
+
+                        <a href='/admin/delete-category/<%= category._id %>'>
+                          <i class='fa fa-trash-o'></i>
+                        </a>
+                        <% } %>
+                    </td> -->
+                    <td>
+                      <ul class="action-list">
+                        <li><a href="/admin/update-category/<%= category._id %>" class="btn btn-primary"><i
+                              class="fa fa-pencil"></i></a>
+                        </li>
+                        <li>
+                         <% if (category.postLength <! 0 ) { %>
+                            <a href="/admin/delete-category/<%= category._id %>" class="btn btn-danger"><i
+                                class="fa fa-trash"></i></a>
+                        </li>
+                        <% } %>
+                      </ul>
+                    </td>
+                  </tr>
+                  <% }) %>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <!-- <div class="col col-sm-6 col-xs-8">Showing <b>5</b> out of <b>25</b> entries</div> -->
+              <div class="col-sm-12">
+                <ul class='pagination admin-pagination'>
+                  <% if (currentPage> 1) { %>
+                    <li>
+                      <a href="/admin/category?page=<%= currentPage - 1 %>">Previous</a>
+                    </li>
+                    <% } %>
+
+                      <% if (totalPages> 1) { %>
+                        <% for (let i=1; i <=totalPages; i++) { %>
+                          <li class="<%= currentPage === i ? 'active' : '' %>">
+                            <a href="/admin/category?page=<%= i %>">
+                              <%= i %>
+                            </a>
+                          </li>
+                          <% } %>
+                            <% } %>
+
+                              <% if (currentPage < totalPages) { %>
+                                <li><a href="/admin/category?page=<%= currentPage + 1 %>">Next</a></li>
+                                <% } %>
+                </ul>
+                <ul class="pagination visible-xs">
+                  <li><a href="#">
+                    </a>
+                  </li>
+                  <li><a href="#"></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%-include('footer.ejs')%>

@@ -1,0 +1,271 @@
+<section class="our-courses course-bg" id="courses">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-2 text-center">
+        <div class="section-heading" data-aos="fade-up" data-aos-duration="800">
+          <h6 style="letter-spacing:2px; color:#dc8cdb; font-weight:700; font-size:1.1rem; text-transform:uppercase;">
+            OUR <%= categoryName ? categoryName.toUpperCase() : 'COURSES' %>
+          </h6>
+          <h2 style="font-size:2.8rem; font-weight:800; color:#222; margin-bottom:12px; letter-spacing:1px;">
+            What You Can <em style="color:#dc8cdb; font-style:normal;">Learn</em>
+          </h2>
+          <p id="course-main-heading" style="font-size:1.15rem; color:#555; line-height:1.7; max-width:700px; margin:0 auto;">
+            PMLH offers <span style="color:#dc8cdb; font-weight:600;">blended learning</span> and a customizable framework of global
+            accreditations and credentials. Our unique content and methodologies are aligned to major global frameworks, empowering students to earn
+            <span style="color:#dc8cdb; font-weight:600;">SDC Canada</span> and <span style="color:#dc8cdb; font-weight:600;">IAPM (International Association of Project Managers)</span>
+            European accreditations/certifications.
+          </p>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="naccs">
+          <div class="tabs">
+            <div id="home-tiles" class="row justify-content-center">
+              <% myPosts.forEach(function(post, index){ %>
+                <div class="col-md-6 col-lg-3 col-sm-12 mb-4">
+                  <div class="course-item">
+                    <a href="/course/single/<%= post._id %>" class="course-link">
+                      <div class="service-icon overlap-icon">
+                        <i class="fa fa-graduation-cap" ></i>
+                      </div>
+                      <div class="course-image full-height-image">
+                        <img src="../uploads/<%=post.image%>" alt="<%= post.title %>" class="img-fluid course-image-graphics">
+                      </div>
+                      <div class="course-details">
+                        <h5 class="course-title">
+                          <%= post.title %>
+                        </h5>
+                        <div class="course-info">
+                          <div class="duration">
+                            <small>12 Weeks</small>
+                          </div>
+                          <div class="hours">
+                            <small>72 Hours</small>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="text-center mt-2">
+                      <a href="/course/single/<%= post._id %>" class="btn btn-primary btn-sm">Read More</a>
+                    </div>
+                  </div>
+                </div>
+              <% }); %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Add your custom styles here */
+  .our-courses {
+    padding: 50px 0;
+  }
+
+  .section-heading {
+    margin-bottom: 40px;
+    text-align: center;
+    padding-top: 10px;
+  }
+
+  .section-heading h6 {
+    font-size: 1.1rem;
+    color: #0fb513;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .section-heading h2 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    color: #222;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+
+  .section-heading h2 em {
+    color: #000;
+    font-style: normal;
+  }
+
+  #course-main-heading {
+    font-size: 1.15rem;
+    color: #555;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .course-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 2.5px solid #eee;
+    border-radius: 18px;
+    overflow: visible;
+    transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
+    height: 100%;
+    padding: 5px;
+    background: linear-gradient(135deg, #f8fff8 0%, #e6ffe6 100%);
+    box-shadow: 0 4px 24px rgba(15,181,19,0.08);
+  }
+
+  .course-item:hover {
+    box-shadow: 0 8px 32px rgba(15,181,19,0.18);
+    border-color: #dc8cdb;
+    transform: translateY(-6px) scale(1.03);
+    background: linear-gradient(135deg, #e6ffe6 0%, #dc8cdb 100%);
+  }
+
+  .course-link {
+    text-decoration: none;
+    color: #333;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .service-icon,
+  .service-icon.overlap-icon,
+  .service-icon.above-image {
+    height: 80px;
+    width: 80px;
+    font-size: 60px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    background: #fff;
+    border: 2px solid #888;
+    box-shadow: 0 2px 8px rgba(15,181,19,0.08);
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 3;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .service-icon.overlap-icon {
+    height: 60px;
+    width: 60px;
+    font-size: 32px;
+    top: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  .service-icon.above-image {
+    position: static;
+    margin: 0 auto 10px auto;
+  }
+
+  .course-image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .course-image.full-height-image img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 18px 18px 0 0;
+    border-bottom: 2px solid #000;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .course-item:hover .course-image img {
+    transform: scale(1.1);
+  }
+
+  .course-details {
+    padding: 18px 15px 10px 15px;
+    background: #fff;
+    border-radius: 0 0 18px 18px;
+  }
+
+  .course-title {
+    font-size: 1.22rem;
+    margin-bottom: 10px;
+    text-align: center;
+    font-weight: 700;
+    color: #000;
+    letter-spacing: 1px;
+  }
+
+  .course-info {
+    margin-bottom: 10px;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .course-info small {
+    color: #777;
+  }
+
+  .btn-primary {
+    background: linear-gradient(90deg, #dc8cdb 0%, #007bff 100%);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 6px 22px;
+    transition: background 0.3s;
+  }
+
+  .btn-primary:hover {
+    background: linear-gradient(90deg, #007bff 70%, #dc8cdb 30%);
+  }
+
+  @media (max-width: 768px) {
+    .section-heading h4 {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .section-heading h4 {
+      font-size: 1.75rem;
+    }
+    .course-title {
+      font-size: 1rem;
+    }
+    .course-info {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .course-bg {
+    background: 
+      linear-gradient(135deg, #e6ffe6 0%, #f8fff8 100%),
+      url('/assets/images/courses-bg-pattern.png');
+    background-repeat: repeat;
+    background-size: cover, 300px 300px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .course-bg::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url('https://www.transparenttextures.com/patterns/geometry2.png');
+    opacity: 0.13;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .our-courses .container,
+  .our-courses .row,
+  .our-courses .col-lg-12 {
+    position: relative;
+    z-index: 2;
+  }
+</style>

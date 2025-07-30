@@ -1,0 +1,98 @@
+<%- include('header') %>
+<!-- Menu Bar -->
+<div id="menu-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class='menu'>
+                    <% categories.forEach(category => { %>   
+                        <% if (category.postLength !== 0 ) { %>
+                        <li>
+                                <a href='/category/<%= category.name %>'><%= category.name %></a>
+                            </li>
+                            <% } %>
+                        
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Menu Bar -->
+    <div id="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- post-container -->
+                    <div class="post-container">
+                        <h2 class="page-heading"> <%= categoryName %> News</h2>                                 
+                            <% categoryPost?.forEach(category=> { %>
+                                    <div class="post-content">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <a class="post-img" href="/single/<%= category.post?._id %>"><img
+                                                        src="/uploads/<%= category.post?.image %>" alt="" /></a>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="inner-content clearfix">
+                                                    <h3><a href='/single/<%= category.post?._id %>'>
+                                                            <%= category.post?.title %>
+                                                        </a></h3>
+                                                    <div class="post-information">
+                                                        <span>
+                                                            <i class="fa fa-tags" aria-hidden="true"></i>
+                                                            <a href='/category/<%= category.name %>'>
+                                                                <%= category.name %>
+                                                            </a>
+                                                        </span>
+                                                        <span>
+                                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                                            <a href='/author/<%= category.user.username %>'>
+                                                                <%= category.user?.username %>
+                                                            </a>
+                                                        </span>
+                                                        <span>
+                                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                            <%= category.formattedDate %>
+                                                        </span>
+                                                    </div>
+                                                    <p class="description">
+                                                        <%= category.post?.description.length > 70 ? category.post?.description.substring(0, 150) + '...' : category.post?.description %>
+            
+                                                    </p>
+                                                    <a class='read-more pull-right' href='/single/<%= category.post?._id %>'>read
+                                                        more</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }) %>       
+                            
+                                <ul class='pagination admin-pagination'>
+                                    <% if (currentPage > 1) { %>
+                                      <li>
+                                        <a href="/category/<%= categoryName %>?page=<%= currentPage - 1 %>">Previous</a>
+                                      </li>
+                                    <% } %>
+                        
+                                    <% if (totalPages > 1) { %>
+                                      <% for (let i=1; i <= totalPages; i++) { %>
+                                        <li class="<%= currentPage === i ? 'active' : '' %>">
+                                          <a href="/category/<%= categoryName %>?page=<%= i %>">
+                                            <%= i %>
+                                          </a>
+                                        </li>
+                                      <% } %>
+                                    <% }  %>
+                        
+                                    <% if (currentPage < totalPages) { %>
+                                      <li><a href="/category/<%= categoryName %>?page=<%= currentPage + 1 %>">Next</a></li>
+                                    <% } %>
+                                </ul> 
+                    </div><!-- /post-container -->
+                </div>
+                <%- include('sidebar') %>
+            </div>
+        </div>
+    </div>
+    <%- include('footer') %>

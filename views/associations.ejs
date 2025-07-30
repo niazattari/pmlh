@@ -1,0 +1,154 @@
+<!-- Associations Section -->
+<section class="services py-5 testimonial-bg" id="services">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-12 text-center mb-5">
+        <h6 class="text-primary">Our Association</h6>
+        
+        <h2 class="fw-bold">PMLH is <em class="text-primary" style="color: #dc8cdb">Associated with</em></h2>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="owl-service-item owl-carousel">
+          <% associations.forEach(function(assoc) { %>
+            <div class="item">
+              <div class="card shadow-sm border border-light-subtle text-center p-4 h-100 association-card">
+                <h4 class="mb-3 fw-bold text-dark">
+                  <i class="fas fa-check-circle text-success me-2"></i>
+                  <%= assoc.title %>
+                </h4>
+                <!-- Image area -->
+                <div class="image-wrapper d-flex align-items-center justify-content-center mb-3">
+                  <a href="<%= assoc.description %>" target="_blank">
+                    <img src="/uploads/<%= assoc.image %>" alt="<%= assoc.title %>" class="img-fluid assoc-img">
+                  </a>
+                </div>
+                <a href="<%= assoc.description %>" class="btn btn-outline-success rounded-pill mt-2" target="_blank">
+                  Visit
+                </a>
+              </div>
+            </div>
+            <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonial-bg {
+    background: linear-gradient(120deg, #e0e7ff 0%, #f5f7ff 100%);
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .testimonial-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/assets/images/testimonial-graphic.svg') center center no-repeat;
+    background-size: 45% auto;
+    opacity: 0.13;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .testimonial-bg::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://www.transparenttextures.com/patterns/hexellence.png');
+    opacity: 0.07;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .association-card {
+    border-radius: 18px;
+    background-color: rgba(255, 255, 255, 0.95);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .association-card:hover {
+    transform: translateY(-6px);
+    border-color: #dc8cdb;
+    box-shadow: 0 12px 30px rgba(13, 110, 253, 0.15);
+    background: linear-gradient(135deg, #e6ffe6 0%, #dc8cdb 100%);
+
+  }
+
+  .assoc-img {
+    height: 120px;
+    width: 120px;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    background-color: #f8f9fa;
+  }
+
+  .image-wrapper {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-outline-success {
+    background: linear-gradient(90deg, #dc8cdb 0%, #007bff 100%);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 6px 22px;
+    transition: background 0.3s;
+  }
+  .btn-outline-success:hover {
+    background: linear-gradient(90deg, #007bff 0%, #dc8cdb 100%);
+  }
+
+  .owl-service-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+  }
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<!-- Owl Carousel -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $(".owl-service-item").owlCarousel({
+      items: 3,
+      loop: true,
+      margin: 20,
+      autoplay: true,
+      autoplayTimeout: 4000,
+      dots: true,
+      nav: false,
+      responsive: {
+        0: { items: 1 },
+        768: { items: 2 },
+        992: { items: 3 }
+      }
+    });
+  });
+</script>

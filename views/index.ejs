@@ -1,0 +1,72 @@
+<%- include('header-after') %>
+<div id="main-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- post-container -->
+                    <div class="post-container">
+
+                          <% posts.forEach(post => { %>
+                                  <div class="post-content">
+                                    <div class="row">                           
+                                            <div class="col-md-4">
+                                                <a class="post-img" href="/course/single/<%= post._id %>"><img src="/uploads/<%= post.image %>" alt=""/></a>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="inner-content clearfix">
+                                                    <h3><a href='/course/single/<%= post._id %>'><%= post.title %></a></h3>
+                                                    <div class="post-information">
+                                                        <span>
+                                                            <i class="fa fa-tags" aria-hidden="true"></i>
+                                                            <a href='/course/category/<%= post.category.name %>'><%= post.category.name %></a>
+                                                        </span>
+                                                        <span>
+                                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                                            <a href="/course/author/<%= post.user?.username %>"><%= post.user?.username %></a>
+                                                        </span>
+                                                        <span>
+                                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                            <!-- 01 Nov, 2019 -->
+                                                            <%= post.formattedDate %>
+                                                        </span>
+                                                    </div>
+                                                    <p class="description">
+                                                      <%= post.description.length > 70 ? post.description.substring(0, 150) + '...' : post.description %>
+                                                      
+
+                                                    </p>
+                                                    <a class='read-more pull-right' href='/course/single/<%= post._id %>'>read more</a>
+                                                </div>
+                                            </div>                 
+                                    </div>
+                                </div>
+                            <% }) %>
+                       
+                            <ul class='pagination admin-pagination'>
+                              <% if (currentPage > 1) { %>
+                                <li>
+                                  <a href="/?page=<%= currentPage - 1 %>">Previous</a>
+                                </li>
+                              <% } %>
+                  
+                              <% if (totalPages > 1) { %>
+                                <% for (let i=1; i <= totalPages; i++) { %>
+                                  <li class="<%= currentPage === i ? 'active' : '' %>">
+                                    <a href="/?page=<%= i %>">
+                                      <%= i %>
+                                    </a>
+                                  </li>
+                                <% } %>
+                              <% }  %>
+                  
+                              <% if (currentPage < totalPages) { %>
+                                <li><a href="/?page=<%= currentPage + 1 %>">Next</a></li>
+                              <% } %>
+                          </ul> 
+                    </div><!-- /post-container -->
+                </div>
+                <%- include('sidebar') %>
+            </div>
+        </div>
+    </div>
+<%- include('footer') %>

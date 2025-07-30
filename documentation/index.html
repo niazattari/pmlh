@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/bootstrap4.0.0.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/css/lightbox.min.css">
+    <title>Documentation</title>
+</head>
+<body>
+    <div id="wrapper">
+        <header class="bg-primary text-white p-2">
+            <h1 class="text-center">Node JS With MongoDB CRUD</h1>
+        </header>
+        <section>
+            <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card mt-3 tab-card">
+                      <div class="card-header tab-card-header">
+                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                          <li class="nav-item">
+                              <a class="nav-link" id="one-tab" data-toggle="tab" href="#start" role="tab" aria-controls="One" aria-selected="true">Start</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" id="two-tab" data-toggle="tab" href="#require" role="tab" aria-controls="Two" aria-selected="false">Requirements</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" id="three-tab" data-toggle="tab" href="#shots" role="tab" aria-controls="Three" aria-selected="false">Screenshots</a>
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" id="four-tab" data-toggle="tab" href="#install" role="tab" aria-controls="Four" aria-selected="false">Installation</a>
+                          </li>
+                        </ul>
+                      </div>
+              
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active p-3" id="start" role="tabpanel" aria-labelledby="one-tab">
+                          <h5 class="card-title">Getting Start</h5>
+                          <p class="card-text">In this news blog project, Node.js with MongoDB CRUD allows you to easily manage blog content. You can:</p>
+                          <ul>
+                            <li>Create new blog posts,</li>
+                            <li>Read and display posts</li>
+                            <li>Update existing posts, and</li>
+                            <li>Delete old posts.</li>
+                          </ul>
+                          <p>This basic CRUD setup helps you manage your blog's content easily and efficiently.</p>
+                        </div>
+                        <div class="tab-pane fade p-3" id="require" role="tabpanel" aria-labelledby="two-tab">
+                          <h5 class="card-title">Requirement</h5>
+                          <p class="card-text">
+                              <ul>
+                                <li>Node.js installed on your system</li>
+                                <li>MongoDB and MongoDB Compass installed locally.</li>
+                              </ul>
+                          </p>
+                          
+                        </div>
+                        <div class="tab-pane fade p-3" id="shots" role="tabpanel" aria-labelledby="three-tab">
+                          <h5 class="card-title">Screenshots</h5>
+                          <p class="card-text">
+                            <div id="jLightroom" class="jlr gray_out">
+                              <a href="./images/1.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/1.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/2.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/2.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/3.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/3.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/4.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/4.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/5.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/5.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/6.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/6.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/7.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/7.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/8.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/8.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/9.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/9.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/10.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/10.png" width="200px" class="jlr_img" />
+                              </a>
+                              <a href="./images/11.png" data-lightbox="lb1" class="jlr_item">
+                                <img src="./images/11.png" width="200px" class="jlr_img" />
+                              </a>
+                            </div>
+                          </p>
+                        </div>
+                        <div class="tab-pane fade p-3" id="install" role="tabpanel" aria-labelledby="four-tab">
+                          <h5 class="card-title">Installation</h5>
+                          <p class="card-text">
+                              <p>Please download the project to a location of your choice on your computer and extract the contents of the downloaded ZIP file. Afterward, follow the instructions provided to complete the installation process :</p>               
+                              <ol>
+                                <li class="mb-2">Open Project in a Code Editor.</li>
+                                <li class="mb-2">Install node dependencies run command in terminal : <code>npm install</code></li>
+                              
+                                <li class="mb-2">Open MongoDB Connection file in  <code>PROJECT_FOLDER/config/mongoose-connection.js</code><br>
+                                  If you wish to change the database name, simply replace 'news' with your desired database name, or leave it as if no changes are required.
+                                  <br>
+                                  <br>
+                                  <img src="./images/conn.png" alt="">
+                                </li>
+                                
+                                <li class="mb-2">Execute the following command in the terminal to start the project : <code>npm start</code></li>
+                                <li class="mb-2">Import All MongoDB Collections using Compass Software from <code>PROJECT_FOLDER/collections</code><br><br>
+                                <img src="./images/mongo.png" width="800px" alt=""></li>
+                                <li class="mb-2">Proceed to : <code>http://localhost:3000</code></li>
+                                <li>For Admin Panel : <code>http://localhost:3000/admin</code> <br>
+                                <code>Username : admin@email.com</code><br>
+                                <code>Password : 123456</code>
+                                </li>
+                              </ol>
+
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </section>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="assets/js/bootstrap4.0.0.min.js"></script>
+    <script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.8.2/js/lightbox.min.js"></script>
+    <script type="text/javascript">
+      $("#jLightroom").lightroom({
+          image_container_selector: ".jlr_item",
+          img_selector: "img.jlr_img",
+          img_class_loaded: "jlr_loaded",
+          img_space: 5,
+          img_mode: 'min',
+          init_callback: function(elem){$(elem).removeClass("gray_out")}
+      }).init();
+  </script>
+</body>
+</html>

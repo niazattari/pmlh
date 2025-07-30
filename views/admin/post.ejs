@@ -1,0 +1,124 @@
+<%- include('header.ejs', { page: 'post' }) %>
+  <link rel="stylesheet" href="/css/contact-list-styles.css">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10">
+        <div class=" panel">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-sm-5 col-xs-12">
+                <h4 class="title">Posts <span>List</span></h4>
+              </div>
+              <div class="col-sm-7 col-xs-12 text-right">
+                <div class="btn_group">
+                  <span class="label label-danger">Filter:</span>
+                  <button type="button" class="btn btn-warning" title="Blocked"><i class="fa fa-ban"></i></button>
+                  <button type="button" class="btn btn-success" title="Active"><i
+                      class="fa fa-check-square"></i></button>
+                </div>
+                <a href="/admin/add-post" class="btn add-new" target="_blank"><i class="fa fa-plus-circle"></i>
+                  Add New Post
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <th>S.No.</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Author</th>
+                <th>status</th>
+                <th>Actions</th>
+              </thead>
+              <tbody>
+
+                <% posts.forEach(function(post, index){ %>
+                  <tr>
+                    <td class='id'>
+                      <%= offset + index + 1 %>
+                    </td>
+                    <td>
+                      <%= post.title %>
+                    </td>
+                    <td>
+                      <%= post.category.name %>
+                    </td>
+
+                    <td>
+                      <%= post.formattedDate %>
+                    </td>
+                    <td>
+                      <%= post.user?.username %>
+                    </td>
+                    <td scope="col">
+                              <% if (post.status) { %>
+                                <button type="button" class="btn btn-success" title="Active"><i
+                                    class="fa fa-check-square"></i></button>
+                                <% } else { %>
+                                  <button type="button" class="btn btn-warning" title="Blocked"><i
+                                      class="fa fa-ban"></i></button>
+                                  <% } %>
+                            </td>
+                    <!-- <img src="images/green_icon.png" alt=""> -->
+                    <!-- <td class='edit'><a href='/admin/update-post/<%= post._id %>'><i class='fa fa-edit'></i></a></td>
+                    <td class='delete'><a href='/admin/delete-post/<%= post._id %>'><i class='fa fa-trash-o'></i></a>
+                    </td> -->
+                    <td>
+                      <ul class="action-list">
+                        <li><button type="button" class="btn btn-warning"><i class="fa fa-eye"></i></button></li>
+                        <li><a href="/admin/update-post/<%= post._id %>" class="btn btn-primary"><i
+                              class="fa fa-pencil"></i></a>
+                        </li>
+                        <li><a href="/admin/delete-post/<%= post._id %>" class="btn btn-danger"><i
+                              class="fa fa-trash-o"></i></a></li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <% }) %>
+
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <!-- <div class="col col-sm-6 col-xs-8">Showing <b>5</b> out of <b>25</b> entries</div> -->
+              <div class="col-sm-12">
+                <ul class='pagination admin-pagination'>
+                  <% if (currentPage> 1) { %>
+                    <li>
+                      <a href="/admin/post?page=<%= currentPage - 1 %>">Previous</a>
+                    </li>
+                    <% } %>
+
+                      <% if (totalPages> 1) { %>
+                        <% for (let i=1; i <=totalPages; i++) { %>
+                          <li class="<%= currentPage === i ? 'active' : '' %>">
+                            <a href="/admin/post?page=<%= i %>">
+                              <%= i %>
+                            </a>
+                          </li>
+                          <% } %>
+                            <% } %>
+
+                              <% if (currentPage < totalPages) { %>
+                                <li><a href="/admin/post?page=<%= currentPage + 1 %>">Next</a></li>
+                                <% } %>
+                </ul>
+                <ul class="pagination visible-xs">
+                  <li><a href="#">
+                    </a>
+                  </li>
+                  <li><a href="#"></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%-include('footer.ejs')%>

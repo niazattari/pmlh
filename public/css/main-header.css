@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+body{ background-color: #2d3436; }
+h1{ color:#fff; padding: 0 0 30px; }
+nav.navbar.bootsnav{
+    background-color: transparent;
+    font-family: 'Exo 2', sans-serif;
+    margin-bottom: 150px;
+    border: none;
+    min-height: auto;
+}
+nav.navbar.bootsnav .navbar-collapse{ padding: 0; }
+nav.navbar.bootsnav ul.nav > li > a{
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 8px 15px 10px;
+    margin: 0 12px 0 0;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+nav.navbar.bootsnav ul.nav > li.dropdown > a{ padding: 8px 30px 10px 15px; }
+nav.navbar.bootsnav ul.nav > li.active > a,
+nav.navbar.bootsnav ul.nav > li.active > a:hover,
+nav.navbar.bootsnav ul.nav > li > a:hover,
+nav.navbar.bootsnav ul.nav > li.on > a{
+    color: #fff;
+    text-shadow: 0 0 3px #333;
+}
+nav.navbar.bootsnav ul.nav > li > a>span:before,
+nav.navbar.bootsnav ul.nav > li > a>span:after{
+    content: '';
+    background-color: #a0db00;
+    height: 100%;
+    width: 65%;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translateY(-50%) scale(0);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    z-index: -1;
+    transition: all 0.3s ease 0s;
+}
+nav.navbar.bootsnav ul.nav > li > a>span:after{
+    left: auto;
+    right: 0;
+}
+nav.navbar.bootsnav ul.nav > li.active > a>span:before,
+nav.navbar.bootsnav ul.nav > li.active > a:hover>span:before,
+nav.navbar.bootsnav ul.nav > li > a:hover>span:before,
+nav.navbar.bootsnav ul.nav > li.on > a>span:before{
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+nav.navbar.bootsnav ul.nav > li.active > a>span:after,
+nav.navbar.bootsnav ul.nav > li.active > a:hover>span:after,
+nav.navbar.bootsnav ul.nav > li > a:hover>span:after,
+nav.navbar.bootsnav ul.nav > li.on > a>span:after{
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content li a:hover,
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu li a:hover,
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu li a.dropdown-toggle:active,
+nav.navbar ul.nav li.dropdown.on ul.dropdown-menu li.dropdown.on > a{
+    color: #fff !important;
+    background-color: #a0db00 !important;
+    text-shadow: 0 0 3px #333;
+}
+nav.navbar.bootsnav ul.nav > li.dropdown > a.dropdown-toggle:after{
+    color: #fff;
+    margin: 0 0 0 7px;
+    position: absolute;
+    top: 8px;
+    right: 7px;
+    transition: all 0.3s;
+}
+nav.navbar.bootsnav ul.nav > li.dropdown > ul{
+    opacity: 0;
+    transform: scale(0);
+    visibility: hidden;
+    left: 10px;
+    z-index: -1;
+    transition: all 0.3s ease 0s;
+}
+nav.navbar.bootsnav ul.nav > li.dropdown.on > ul{
+    transform: scale(1);
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+.dropdown-menu.multi-dropdown{
+    position: absolute;
+    left: -100% !important;
+}
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu{
+    background-color: transparent;
+    border: none;
+    top: 105%;
+    z-index: 1;
+}
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu > li > a{
+    color: #333;
+    background-color: #fff;
+}
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu > li:first-child > a{
+    border-radius: 20px 20px 0 0;
+}
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu > li:last-child > a{
+    border-radius: 0 0 20px 20px;
+}
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content{
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    top: 105%;
+    left: 0;
+}
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content li{ font-size: 14px; }
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .menu-col li a{
+    color: #333;
+    background-color: transparent;
+    border-radius: 20px;
+    padding-left: 10px;
+    transition: all 0.3s ease;
+}
+nav.navbar.bootsnav ul.nav li.megamenu-fw > a:hover,
+nav.navbar.bootsnav ul.nav li.megamenu-fw > a:focus,
+nav.navbar.bootsnav ul.nav li.megamenu-fw.on > a{ background-color: transparent !important; }
+nav.navbar.bootsnav ul.dropdown-menu.megamenu-content .col-menu{ padding: 0 15px; }
+nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .title{
+    color: #a0db00;
+    font-size: 16px;
+    text-transform: uppercase;
+    padding: 0 0 5px;
+    margin: 0 0 5px;
+    border-bottom: 2px solid #a0db00;
+}
+@media only screen and (max-width:990px){
+    .dropdown-menu.multi-dropdown{ left: 0 !important; }
+    nav.navbar.bootsnav .navbar-toggle{
+        color: #fff;
+        background: #a0db00 !important;
+        padding: 3px 8px;
+        border-radius: 0;
+    }
+    nav.navbar.bootsnav.navbar-mobile .navbar-collapse{ background-color: #2d3436; }
+    nav.navbar.bootsnav ul.nav>li{ margin: 0 auto 2px; }
+    nav.navbar.bootsnav.navbar-mobile ul.nav>li>a{
+        background-color: #2d3436;
+        text-align: center;
+        padding: 10px 15px;
+        margin: 0;
+        border: none;
+    }
+    nav.navbar.bootsnav ul.nav>li.dropdown>a{ padding: 10px 10px 10px 28px; }
+    nav.navbar.bootsnav ul.nav>li.dropdown>a.dropdown-toggle:before{ color: #fff; }
+    nav.navbar.bootsnav ul.nav > li.dropdown > ul{ left: -5px; }
+    nav.navbar.bootsnav ul.nav li.dropdown ul.dropdown-menu{
+        margin: 0 0  -1px 0 !important;
+        z-index: 1;
+    }
+    nav.navbar.bootsnav ul.nav li.dropdown ul.dropdown-menu>li>a{
+        color: #333;
+        padding-left: 10px;
+        border: none;
+    }
+    nav.navbar.bootsnav .dropdown-menu{ z-index: 0; }
+    nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .title{
+        color: #fff;
+        font-size: 14px;
+        font-weight: normal;
+    }
+    nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .content{ border: none; }
+    nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .col-menu.on .title{ font-weight: 600; }
+    nav.navbar.bootsnav li.dropdown ul.dropdown-menu.megamenu-content .col-menu li a{
+       color: #333;
+       background-color: #fff;
+       border: none;
+       margin-bottom: 0;
+    }
+}

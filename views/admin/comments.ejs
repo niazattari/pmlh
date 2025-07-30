@@ -1,0 +1,124 @@
+<%- include('header.ejs', { page: 'comments' }) %>
+  <link rel="stylesheet" href="/css/contact-list-styles.css">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10">
+        <div class=" panel">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-sm-5 col-xs-12">
+                <h4 class="title">User Comments <span>List</span></h4>
+              </div>
+              <div class="col-sm-7 col-xs-12 text-right">
+                <div class="btn_group">
+                  <span class="label label-danger">Filter:</span>
+                  <button type="button" class="btn btn-warning" title="Blocked"><i class="fa fa-ban"></i></button>
+                  <button type="button" class="btn btn-success" title="Active"><i
+                      class="fa fa-check-square"></i></button>
+                </div>
+                <a href="/" class="btn add-new" target="_blank"><i class="fa fa-plus-circle"></i>
+                  Add New Comments
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="panel-body table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>S.No.</th>
+                  <th>Comment</th>
+                  <th>Post Id</th>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <% comments.forEach((comment,i)=> { %>
+
+                  <tr>
+                    <td class='id'>
+                      <%=offset + i+1 %>
+                    </td>
+                    <td>
+                      <%= comment.description %>
+                    </td>
+                    <td>
+                      <%= comment.post.title %>
+                    </td>
+                    <td>
+                      <%= comment.name %>
+                    </td>
+                    <td>
+                      <%= comment.formattedDate %>
+                    </td>
+                    <!-- <td><a href='/admin/view-comment/<%= comment._id %>'>
+                        view
+                      </a></td>
+                    <td class='edit'><a href='/admin/update-comment/<%= comment._id %>'><i class='fa fa-edit'></i></a>
+                    </td>
+                    <td class='delete'>
+                      <a href='/admin/delete-comment/<%= comment._id %>'>
+                        <i class='fa fa-trash-o'></i>
+                      </a>
+
+                    </td> -->
+                    <td>
+                      <ul class="action-list">
+                        <li><a href="/admin/view-comment/<%= comment._id %>" class="btn btn-warning"><i
+                              class="fa fa-eye"></i></a>
+                        </li>
+                        <li><a href="/admin/update-comment/<%= comment._id %>" class="btn btn-primary"><i
+                              class="fa fa-edit"></i></a>
+                        </li>
+                        <li><a href="/admin/delete-comment/<%= comment._id %>" class="btn btn-danger"><i
+                              class="fa fa-trash"></i></a>
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <% }) %>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <!-- <div class="col col-sm-6 col-xs-8">Showing <b>5</b> out of <b>25</b> entries</div> -->
+              <div class="col-sm-12">
+                <ul class='pagination admin-pagination'>
+                  <% if (currentPage> 1) { %>
+                    <li>
+                      <a href="/admin/comments?page=<%= currentPage - 1 %>">Previous</a>
+                    </li>
+                    <% } %>
+
+                      <% if (totalPages> 1) { %>
+                        <% for (let i=1; i <=totalPages; i++) { %>
+                          <li class="<%= currentPage === i ? 'active' : '' %>">
+                            <a href="/admin/comments?page=<%= i %>">
+                              <%= i %>
+                            </a>
+                          </li>
+                          <% } %>
+                            <% } %>
+
+                              <% if (currentPage < totalPages) { %>
+                                <li><a href="/admin/comments?page=<%= currentPage + 1 %>">Next</a></li>
+                                <% } %>
+                </ul>
+                <ul class="pagination visible-xs">
+                  <li><a href="#">
+                    </a>
+                  </li>
+                  <li><a href="#"></a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%-include('footer.ejs')%>
