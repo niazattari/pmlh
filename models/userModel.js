@@ -16,6 +16,9 @@ const userSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        profileImage: {
+            type: String,
+        },
     },
 )
 userSchema.plugin(aggregatePaginate);

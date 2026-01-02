@@ -1,9 +1,9 @@
 <%- include('header') %>
 <%- include('main-banner-area') %>
 <%- include('associations') %> 
-<%- include('main-course-area')%>
+<%- include('main-course-area', { myPosts: myPosts }) %>
 <%- include('cta') %>
-<%- include('webinar') %>
-<%- include('testimonials') %>
+<%- include('./webinar') %>
+<%- include('testimonials', { testimonials: testimonials }) %>
 <%- include('contactus') %>
 <%- include('footer') %>

@@ -1,0 +1,260 @@
+<%- include('header.ejs', { page: 'summary' }) %>
+<link rel="stylesheet" href="/css/contact-list-styles.css">
+<style>
+  /* Uniform dashboard card sizing */
+  .dash-card {
+    min-height: 170px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+  }
+  /* Unified icon sizing and color */
+  .dash-icon {
+    font-size: 32px; /* ~fa-2x equivalent */
+    color: #007bff;
+  }
+  /* Consistent heading spacing */
+  .dash-card h5,
+  .dash-card h6,
+  .dash-card .h4,
+  .dash-card .lead {
+    margin: 6px 0;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-offset-1 col-md-10">
+      <!-- Hero Header -->
+      <div class="panel">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-sm-8 col-xs-12">
+              <h4 class="title">
+                  <img src="/images/logo.png" alt="PMLH" style="height:64px; margin-right:12px; vertical-align:middle; border:2px solid #007bff; border-radius:6px; padding:4px;"> Admin <span>Dashboard</span>
+              </h4>
+              <p class="text-muted">Clean overview with icons, tabs and charts</p>
+            </div>
+            <div class="col-sm-4 text-right hidden-xs">
+                <span class="label label-primary"><i class="fa fa-tachometer" style="color:#007bff"></i> Summary</span>
+                <span class="label label-success"><i class="fa fa-check-circle" style="color:#007bff"></i> Live</span>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <!-- KPI Cards -->
+          <div class="row">
+            <div class="col-sm-6 col-md-3">
+              <div class="well text-center dash-card">
+                  <h5 class="text-primary"><i class="fa fa-files-o dash-icon" style="margin-right:8px;"></i> Total Posts</h5>
+                <h2><%= (totals && totals.posts) || 0 %></h2>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="well text-center dash-card">
+                  <h5 class="text-success"><i class="fa fa-certificate dash-icon" style="margin-right:8px;"></i> Certificates</h5>
+                <h2><%= (totals && totals.certificates) || 0 %></h2>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="well text-center dash-card">
+                  <h5 class="text-info"><i class="fa fa-address-book dash-icon" style="margin-right:8px;"></i> Contacts</h5>
+                <h2><%= (totals && totals.contacts) || 0 %></h2>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="well text-center dash-card">
+                  <h5 class="text-warning"><i class="fa fa-users dash-icon" style="margin-right:8px;"></i> Users</h5>
+                <h2><%= (totals && totals.users) || 0 %></h2>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-3">
+              <div class="well text-center dash-card">
+                  <h5 class="text-muted"><i class="fa fa-envelope dash-icon" style="margin-right:8px;"></i> Messages</h5>
+                <h2><%= (totals && totals.messages) || 0 %></h2>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="well text-center dash-card">
+                  <h5 class="text-primary"><i class="fa fa-list dash-icon" style="margin-right:8px;"></i> Registrations</h5>
+                <h2><%= (totals && totals.registrations) || 0 %></h2>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="well text-center dash-card">
+                <h6 class="text-uppercase"><i class="fa fa-graduation-cap dash-icon" style="margin-right:6px;"></i> Courses</h6>
+                <div><strong><%= (postsByCategory && postsByCategory.courses) || 0 %></strong></div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+              <div class="well text-center dash-card">
+                <h6 class="text-uppercase"><i class="fa fa-video-camera dash-icon" style="margin-right:6px;"></i> Webinars</h6>
+                <div><strong><%= (postsByCategory && postsByCategory.webinars) || 0 %></strong></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#overview" aria-controls="overview" role="tab" data-toggle="tab"><i class="fa fa-tachometer fa-lg" style="margin-right:6px;"></i> Overview</a></li>
+            <li role="presentation"><a href="#content" aria-controls="content" role="tab" data-toggle="tab"><i class="fa fa-folder-open fa-lg" style="margin-right:6px;"></i> Content</a></li>
+            <li role="presentation"><a href="#registrations" aria-controls="registrations" role="tab" data-toggle="tab"><i class="fa fa-check-square fa-lg" style="margin-right:6px;"></i> Registrations</a></li>
+          </ul>
+
+          <div class="tab-content" style="padding-top:15px;">
+            <!-- Overview Tab -->
+            <div role="tabpanel" class="tab-pane active" id="overview">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="title"><i class="fa fa-bar-chart"></i> Posts by Category</h4>
+                    </div>
+                    <div class="panel-body">
+                      <canvas id="postsCategoryChart" height="160"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <h4 class="title"><i class="fa fa-pie-chart"></i> Registrations by Status</h4>
+                    </div>
+                    <div class="panel-body">
+                      <canvas id="registrationsStatusChart" height="160"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Content Tab -->
+            <div role="tabpanel" class="tab-pane" id="content">
+              <div class="row">
+                <div class="col-sm-6 col-md-3">
+                  <div class="well text-center dash-card">
+                      <i class="fa fa-graduation-cap dash-icon"></i>
+                    <div class="h4">Courses</div>
+                    <div class="lead"><%= (postsByCategory && postsByCategory.courses) || 0 %></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <div class="well text-center dash-card">
+                      <i class="fa fa-video-camera dash-icon"></i>
+                    <div class="h4">Webinars</div>
+                    <div class="lead"><%= (postsByCategory && postsByCategory.webinars) || 0 %></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <div class="well text-center dash-card">
+                      <i class="fa fa-handshake-o dash-icon"></i>
+                    <div class="h4">Associations</div>
+                    <div class="lead"><%= (postsByCategory && postsByCategory.associations) || 0 %></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                  <div class="well text-center dash-card">
+                      <i class="fa fa-star-o dash-icon"></i>
+                    <div class="h4">Testimonials</div>
+                    <div class="lead"><%= (postsByCategory && postsByCategory.testimonials) || 0 %></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Registrations Tab -->
+            <div role="tabpanel" class="tab-pane" id="registrations">
+              <div class="row">
+                <div class="col-sm-6 col-md-2">
+                  <div class="well text-center dash-card">
+                      <div class="h5"><i class="fa fa-hourglass-half dash-icon" style="margin-right:8px;"></i> Pending</div>
+                    <div class="lead"><%= (registrationStatusCounts && registrationStatusCounts.pending) || 0 %></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-2">
+                  <div class="well text-center dash-card">
+                      <div class="h5"><i class="fa fa-check dash-icon" style="margin-right:8px;"></i> Confirmed</div>
+                    <div class="lead"><%= (registrationStatusCounts && registrationStatusCounts.confirmed) || 0 %></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-2">
+                  <div class="well text-center dash-card">
+                      <div class="h5"><i class="fa fa-trophy dash-icon" style="margin-right:8px;"></i> Completed</div>
+                    <div class="lead"><%= (registrationStatusCounts && registrationStatusCounts.completed) || 0 %></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-2">
+                  <div class="well text-center dash-card">
+                      <div class="h5"><i class="fa fa-trash dash-icon" style="margin-right:8px;"></i> Deleted</div>
+                    <div class="lead"><%= (registrationStatusCounts && registrationStatusCounts.deleted) || 0 %></div>
+                  </div>
+                </div>
+                <div class="col-sm-6 col-md-2">
+                  <div class="well text-center dash-card">
+                      <div class="h5"><i class="fa fa-times-circle dash-icon" style="margin-right:8px;"></i> Cancelled</div>
+                    <div class="lead"><%= (registrationStatusCounts && registrationStatusCounts.cancelled) || 0 %></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Charts scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  (function() {
+    // Posts Category Chart
+    var postsLabels = <%- JSON.stringify(charts && charts.postsCategoryChart && charts.postsCategoryChart.labels || []) %>;
+    var postsData = <%- JSON.stringify(charts && charts.postsCategoryChart && charts.postsCategoryChart.data || []) %>;
+    var postsCtx = document.getElementById('postsCategoryChart').getContext('2d');
+    new Chart(postsCtx, {
+      type: 'bar',
+      data: {
+        labels: postsLabels,
+        datasets: [{
+          label: 'Posts',
+          data: postsData,
+          backgroundColor: ['#007bff','#28a745','#6c757d','#ffc107']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, precision: 0 } }
+      }
+    });
+
+    // Registrations Status Chart
+    var regLabels = <%- JSON.stringify(charts && charts.registrationsStatusChart && charts.registrationsStatusChart.labels || []) %>;
+    var regData = <%- JSON.stringify(charts && charts.registrationsStatusChart && charts.registrationsStatusChart.data || []) %>;
+    var regCtx = document.getElementById('registrationsStatusChart').getContext('2d');
+    new Chart(regCtx, {
+      type: 'doughnut',
+      data: {
+        labels: regLabels,
+        datasets: [{
+          label: 'Registrations',
+          data: regData,
+          backgroundColor: ['#6c757d','#007bff','#28a745','#dc3545','#ffc107']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+  })();
+</script>
+
+<%- include('footer.ejs') %>

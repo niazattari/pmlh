@@ -22,6 +22,17 @@ const commentSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'post'
     }
+    ,
+    userImage: {
+        type: String,
+        default: null
+    },
+    rating: {
+        type: Number,
+        min: 1,
+        max: 5,
+        default: null
+    }
 }
 )
 commentSchema.plugin(aggregatePaginate);

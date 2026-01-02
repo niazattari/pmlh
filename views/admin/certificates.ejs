@@ -1,0 +1,123 @@
+<%- include('header.ejs') %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h2 class="fw-bold m-0">Certificates</h2>
+        <span class="badge bg-primary-subtle text-primary border">Admin Panel</span>
+      </div>
+      <p class="text-muted mb-4">Create and manage certificate records.</p>
+    </div>
+  </div>
+
+  <!-- Create Certificate Card -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Add New Certificate</h5>
+      <form action="/admin/certificates-update/new" method="post" enctype="multipart/form-data" class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Full Name</label>
+          <input name="name" class="form-control" placeholder="Full name" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Email</label>
+          <input name="email" class="form-control" placeholder="email@example.com" required>
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Batch No</label>
+          <input name="batchNo" class="form-control" placeholder="e.g., 2025-A">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Certificate #</label>
+          <input name="certificateNumber" class="form-control" placeholder="Unique ID" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Date of Completion</label>
+          <input type="date" name="dateOfCompletion" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Certificate File (PDF/Image)</label>
+          <input type="file" name="certificateFile" class="form-control" accept="application/pdf,image/*">
+        </div>
+        <div class="col-md-5 d-flex align-items-end justify-content-end">
+          <button class="btn btn-primary px-4" type="submit">
+            <i class="fa fa-plus me-1"></i> Add Certificate
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Certificates Table -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <h5 class="card-title m-0">All Certificates</h5>
+        <div class="input-group" style="max-width: 320px;">
+          <span class="input-group-text"><i class="fa fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search by name, email, or #" oninput="filterCertificates(this.value)">
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover align-middle" id="certTable">
+          <thead class="table-light">
+            <tr>
+              <th style="width:48px">#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Batch</th>
+              <th>Completed</th>
+              <th>Certificate #</th>
+              <th style="width:160px">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (certificates && certificates.length) { %>
+              <% certificates.forEach((c, i) => { %>
+                <tr>
+                  <td class="text-muted"><%= i+1 %></td>
+                  <td class="fw-semibold"><%= c.name %></td>
+                  <td><a href="mailto:<%= c.email %>" class="text-decoration-none"><%= c.email %></a></td>
+                  <td><%= c.batchNo || '-' %></td>
+                  <td><%= c.dateOfCompletion ? new Date(c.dateOfCompletion).toLocaleDateString() : '-' %></td>
+                  <td><code><%= c.certificateNumber %></code></td>
+                  <td>
+                    <a class="btn btn-sm btn-outline-secondary" href="/admin/certificates-update/<%= c._id %>">
+                      <i class="fa fa-pencil"></i> Edit
+                    </a>
+                    <a class="btn btn-sm btn-outline-danger ms-1" href="/admin/certificates-delete/<%= c._id %>" onclick="return confirm('Delete this certificate?')">
+                      <i class="fa fa-trash"></i> Delete
+                    </a>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr><td colspan="7" class="text-center text-muted py-4">No certificates yet.</td></tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('footer.ejs') %>
+
+<script>
+function filterCertificates(q){
+  const query = (q||'').toLowerCase();
+  const rows = document.querySelectorAll('#certTable tbody tr');
+  rows.forEach(r => {
+    const text = r.innerText.toLowerCase();
+    r.style.display = text.includes(query) ? '' : 'none';
+  });
+}
+</script>
+
+<style>
+  /* Professional polish */
+  .card { border:1px solid rgba(0,0,0,.06); border-radius:14px; }
+  .card-title { font-weight:800; letter-spacing:.2px; }
+  .btn-primary { box-shadow:0 10px 24px rgba(13,110,253,.18); }
+  .table thead th { font-weight:700; }
+  .table-hover tbody tr:hover { background:#f8fafc; }
+</style>

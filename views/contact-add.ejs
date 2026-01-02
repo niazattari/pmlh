@@ -1,4 +1,4 @@
-<%- include('header-after.ejs') %>
+<%- include('header.ejs') %>
 
 <div class="container mt-5" id="form-myDiv">
   <form id="myForm" class="row g-3" action="/contact-add/addNewUser" method="post" enctype="multipart/form-data">
@@ -13,32 +13,24 @@
     </div>
     <div class="col-md-6">
       <label for="contactNo" class="form-label">Contact Number / Whatsapp Number </label>
-      <input type="text" name="contactNo" id="contactNo" class="form-control">
+      <input type="text" name="contactNo" id="contactNo" class="form-control" pattern="^03[0-9]{2}-?[0-9]{7}$" title="Use format 03xx-xxxxxxx">
     </div>
     <div class="col-md-6">
       <label for="email" class="form-label">Email</label>
-      <input type="email" name="email" id="email" class="form-control">
+      <input type="email" name="email" id="email" class="form-control" required>
+      <div id="emailHelp" class="form-text small text-danger" style="display:none;"></div>
     </div>
     <div class="col-md-6">
       <label for="password" class="form-label">Password</label>
-      <input type="password" name="password" id="password" class="form-control">
+      <input type="password" name="password" id="password" class="form-control" minlength="8" title="Minimum 8 characters" placeholder="At least 8 characters">
+      <div class="form-text" id="passwordHelp">
+        Simple rule: at least 8 characters. You can use letters and numbers. Example: <code>Pmlh2025</code>
+      </div>
     </div>
-    <!-- <div class="col-md-6">
-      <label for="country" class="form-label">Country</label>
-      <input type="text" name="country" id="country" class="form-control">
-    </div> -->
-    <!-- <div class="col-md-6">
-      <label for="qualification" class="form-label">Qualification</label>
-      <input type="text" name="qualification" id="qualification" class="form-control">
-    </div> -->
     <div class="col-md-6">
       <label for="profileImage" class="form-label">Profile Image</label>
       <input type="file" name="profileImage" id="profileImage" class="form-control" required>
     </div>
-    <!-- <div class="col-12">
-      <label for="address" class="form-label">Postal address for Certificate</label>
-      <textarea type="text" name="address" id="address" class="form-control"></textarea>
-    </div> -->
     <div class="col-12 text-center mt-4">
       <button type="submit" class="btn btn-primary me-2">Submit</button>
       <button type="button" class="btn btn-danger" onclick="window.location.href='/'">Cancel</button>
@@ -46,3 +38,274 @@
   </form>
 </div>
 <%- include('footer.ejs') %>
+
+<style>
+  
+/* ===== Professional theme (scoped) ===== */
+:root {
+  --brand-primary: #0d6efd;    /* Bootstrap primary */
+  --brand-danger:  #dc3545;    /* Bootstrap danger  */
+  --brand-text:    #0b132b;
+  --brand-muted:   #6c757d;
+  --card-bg:       #ffffff;
+  --page-bg:       #f5f7fb;
+  --ring-primary:  rgba(13,110,253,.18);
+  --ring-danger:   rgba(220,53,69,.18);
+}
+
+/* Page backdrop */
+body {
+  background: radial-gradient(1200px 600px at 80% -10%, #e8f0ff 0%, transparent 70%),
+              radial-gradient(900px 500px at -10% 110%, #fef1f3 0%, transparent 75%),
+              var(--page-bg);
+  font-smooth: always;
+}
+
+/* Container sizing & centering */
+#form-myDiv {
+  max-width: 960px;
+  margin-inline: auto;
+  padding-inline: clamp(0.5rem, 2vw, 1rem);
+}
+
+/* Card look for the form */
+#form-myDiv form {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 14px;
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+  box-shadow:
+    0 10px 30px rgba(13,110,253,.06),
+    0 2px 8px rgba(0,0,0,.04);
+}
+
+/* Decorative accent bar (no markup change) */
+#form-myDiv form::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  height: 4px;
+  width: 140px;
+  border-radius: 0 0 8px 0;
+  background: linear-gradient(90deg, var(--brand-primary), #6ea8fe);
+  opacity: .9;
+}
+
+/* Title styling */
+#form-myDiv h1 {
+  color: var(--brand-text);
+  font-weight: 600;
+  letter-spacing: .2px;
+  margin-bottom: .75rem !important;
+}
+
+/* Labels */
+#form-myDiv .form-label {
+  color: var(--brand-text);
+  font-weight: 600;
+  margin-bottom: .35rem;
+}
+
+/* Help text */
+#form-myDiv .form-text {
+  color: var(--brand-muted);
+  font-size: .9rem;
+}
+
+/* Inputs: shape, focus ring, hover */
+#form-myDiv .form-control {
+  border-radius: 10px;
+  border-color: rgba(0,0,0,.12);
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+  padding: .55rem .8rem;
+}
+
+#form-myDiv .form-control:hover {
+  border-color: rgba(0,0,0,.22);
+  background-color: #fcfdff;
+}
+
+#form-myDiv .form-control:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 .25rem var(--ring-primary);
+}
+
+/* File input: modern button */
+#form-myDiv input[type="file"]::file-selector-button {
+  margin-right: .75rem;
+  padding: .45rem .8rem;
+  border: 1px solid rgba(13,110,253,.35);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff, #f5f9ff);
+  color: var(--brand-primary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+#form-myDiv input[type="file"]::file-selector-button:hover {
+  background: #eef5ff;
+  border-color: var(--brand-primary);
+}
+
+/* Invalid state (Bootstrap) refinement */
+#form-myDiv .form-control.is-invalid,
+#form-myDiv .form-control:invalid {
+  border-color: var(--brand-danger);
+  box-shadow: 0 0 0 .25rem var(--ring-danger);
+}
+
+/* Buttons: stronger feel but still Bootstrap */
+#form-myDiv .btn {
+  border-radius: 10px;
+  padding: .55rem 1.1rem;
+  font-weight: 600;
+  letter-spacing: .2px;
+  transition: transform .06s ease, box-shadow .15s ease, filter .15s ease;
+  will-change: transform;
+}
+
+#form-myDiv .btn-primary {
+  background: linear-gradient(180deg, #2e7bff, var(--brand-primary));
+  box-shadow: 0 8px 18px rgba(13,110,253,.20);
+  border: 1px solid #2e7bff;
+}
+
+#form-myDiv .btn-primary:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 10px 22px rgba(13,110,253,.28);
+}
+
+#form-myDiv .btn-danger {
+  background: linear-gradient(180deg, #f06572, var(--brand-danger));
+  border: 1px solid #f06572;
+  box-shadow: 0 8px 18px rgba(220,53,69,.20);
+}
+
+#form-myDiv .btn-danger:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 10px 22px rgba(220,53,69,.28);
+}
+
+/* Micro interaction on click */
+#form-myDiv .btn:active {
+  transform: translateY(1px);
+}
+
+/* Spacing & grid tweaks */
+#form-myDiv .row.g-3 > [class^="col-"],
+#form-myDiv .row.g-3 > [class*=" col-"] {
+  margin-top: .25rem;
+}
+
+/* Footer spacing under form */
+#form-myDiv .col-12.text-center.mt-4 {
+  margin-top: 1.1rem !important;
+}
+
+/* Placeholder color */
+#form-myDiv .form-control::placeholder {
+  color: #9aa3ad;
+}
+
+/* Responsive: tighten padding on small screens */
+@media (max-width: 576px) {
+  #form-myDiv {
+    padding-inline: .5rem;
+  }
+  #form-myDiv form {
+    padding: 1rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --brand-text: #e9edf5;
+    --card-bg: #0f1320;
+    --page-bg: #0b0e1a;
+    --brand-muted: #9aa4b3;
+    --ring-primary: rgba(102,163,255,.25);
+    --ring-danger: rgba(255,122,139,.25);
+  }
+  body {
+    background: radial-gradient(1000px 500px at 70% -10%, #0f1a2e 0%, transparent 70%),
+                radial-gradient(700px 400px at -10% 110%, #1a1220 0%, transparent 75%),
+                var(--page-bg);
+  }
+  #form-myDiv form {
+    border-color: rgba(255,255,255,.08);
+    box-shadow:
+      0 14px 34px rgba(0,0,0,.55),
+      0 2px 8px rgba(0,0,0,.45);
+  }
+  #form-myDiv .form-control {
+    background: #0b1020;
+    color: var(--brand-text);
+    border-color: rgba(255,255,255,.15);
+  }
+  #form-myDiv .form-control::placeholder {
+    color: #7b8694;
+  }
+  #form-myDiv input[type="file"]::file-selector-button {
+    background: linear-gradient(180deg, #111933, #0b1020);
+    color: #9ec1ff;
+    border-color: rgba(158,193,255,.35);
+  }
+}
+
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  const emailInput = document.getElementById('email');
+  const emailHelp = document.getElementById('emailHelp');
+  const loginLink = document.createElement('div');
+  loginLink.innerHTML = '<small>Already registered? <a href="/user/login">Login here</a></small>';
+  loginLink.style.display = 'none';
+  if (emailInput) emailInput.parentNode.appendChild(loginLink);
+
+  let last = '';
+  if (emailInput) {
+    emailInput.addEventListener('blur', async function(){
+      const v = emailInput.value.trim();
+      if (!v || v === last) return;
+      last = v;
+      try {
+        const res = await fetch('/api/check-email?email=' + encodeURIComponent(v));
+        const json = await res.json();
+        if (json.exists) {
+          emailHelp.style.display = 'block';
+          emailHelp.textContent = 'This email is already registered. Please login to access courses.';
+          loginLink.style.display = 'block';
+        } else {
+          emailHelp.style.display = 'none';
+          emailHelp.textContent = '';
+          loginLink.style.display = 'none';
+        }
+      } catch (e) {
+        console.warn('Email check failed', e);
+      }
+    });
+  }
+
+  const form = document.getElementById('myForm');
+  if (form) {
+    form.addEventListener('submit', function(e){
+      const phone = document.getElementById('contactNo');
+      if (phone && !phone.checkValidity()) {
+        e.preventDefault();
+        phone.focus();
+        return;
+      }
+      const pwd = document.getElementById('password');
+      if (pwd && pwd.value && pwd.value.length < 8) {
+        e.preventDefault();
+        pwd.focus();
+        return;
+      }
+    });
+  }
+});
+</script>

@@ -474,20 +474,67 @@ const author = async (req, res) => {
 
 const addComment = async (req, res) => {
   try {
-    const { name, email, description, postId, date } = req.body;
+    // post id comes from the URL param
+    const postId = req.params.id;
+    const { description } = req.body;
+
+    // Validate ObjectId to avoid constructor errors
+    if (!mongoose.Types.ObjectId.isValid(postId)) {
+      return res.status(400).send('Invalid post id');
+    }
+    let name = req.body.name || '';
+    let email = req.body.email || '';
+    let rating = req.body.rating ? parseInt(req.body.rating, 10) : null;
+    if (Number.isNaN(rating)) rating = null;
+    if (rating !== null) {
+      // clamp rating to 1-5
+      rating = Math.max(1, Math.min(5, rating));
+    }
+
+    // Try to resolve authenticated user (session or token)
+    let userImage = null;
+    try {
+      const sessUserId = req.session?.user?._id || req.session?.user?.id;
+      if (sessUserId) {
+        // try canonical user collection first
+        const usr = await userModel.findById(sessUserId).lean();
+        if (usr) {
+          name = name || (usr.username || usr.name || '');
+          email = email || usr.email || '';
+          userImage = usr.profileImage || usr.image || usr.avatar || null;
+        } else {
+          // fallback to contactModel
+          try {
+            const contact = require('../models/contactModel');
+            const c = await contact.findById(sessUserId).lean();
+            if (c) {
+              name = name || c.name || '';
+              email = email || c.email || '';
+              userImage = c.profileImage || null;
+            }
+          } catch (e) {
+            // ignore
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('addComment: error resolving session user', e && e.message);
+    }
 
     const comment = await commentModel.create({
       name,
       email,
       description,
-      postId: new Object(postId),
-      date,
+      postId: new mongoose.Types.ObjectId(postId),
+      rating,
+      userImage,
     });
 
-    return res.redirect(`/course/single/${postId}`);
-    // console.log(comment);
+    // Redirect back to the same single page (mounted under /site)
+    return res.redirect(`/site/single/${postId}`);
   } catch (err) {
-    return res.send(err.message);
+    console.error('addComment error:', err);
+    return res.status(500).send(err.message || 'Failed to add comment');
   }
 };
 

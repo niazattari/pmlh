@@ -1,50 +1,150 @@
+<%- include('../partials/header') %>
+<%- include('../partials/admin-nav') %>
 
-<%- include('header') %>
-  <div id="admin-content">
-      <div class="container">
-         <div class="row">
-             <div class="col-md-12">
-                 <h1 class="admin-heading">Add New Post</h1>
-             </div>
-              <div class="col-md-offset-3 col-md-6">
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Add New Post</h2>
+          
+          <% if (errors && errors.length > 0) { %>
+            <div class="alert alert-danger">
+              <% errors.forEach(function(error) { %>
+                <p><%= error.msg %></p>
+              <% }); %>
+            </div>
+          <% } %>
+
+          <form action="/admin/create-post" method="POST" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title</label>
+              <input type="text" class="form-control" id="title" name="title" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="categoryId" class="form-label">Category</label>
+              <select class="form-select" id="categoryId" name="categoryId" required onchange="toggleCourseFields()">
+                <option value="">Select Category</option>
+                <% categories.forEach(function(category) { %>
+                  <option value="<%= category._id %>"><%= category.name %></option>
+                <% }); %>
+              </select>
+            </div>
+
+            <!-- Course Fields Section -->
+            <div id="courseFieldsSection" style="display: none;">
+              <hr class="my-4">
+              <h5 class="mb-3 text-primary">Course Details</h5>
+              
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Duration</label>
+                  <input type="text" name="courseDetails.duration" class="form-control" placeholder="e.g., 12 Weeks">
+                </div>
                 
-                  <!-- Form -->
-                  <form  action="/admin/post" method="POST" enctype="multipart/form-data">
-                      <div class="form-group">
-                          <label for="title">Title</label>
-                          <input type="text" id="title" name="title" class="form-control" maxlength="70" required>
-                      </div>
-                      <div class="form-group">
-                          <label for="description"> Description</label>
-                          <textarea name="description" id="description" class="form-control" rows="5" maxlength="1000" required></textarea>
-                      </div>
-                      <div class="form-group">
-                          <label>Category</label>
-                          <select name="categoryId" class="form-control">
-                            
-                            <% categories.forEach(category => { %>
-                                <option value="<%= category._id %>"><%= category.name %></option>
-                              <% }); %>
-                          </select>
-                      </div>
-                      <div class="form-group">
-                          <label>Post image</label>
-                          <input type="file" name="image" required>
-                      </div>
-                      <input type="submit" name="status" class="btn btn-primary" value="Publish" required />
-                      <input type="submit" name="status" class="btn btn-primary" value="Draft" required />
-                  </form>
-                  <% if (errors.length > 0) { %>
-                    <ul style="list-style-type: disc; color: #C47472; background: #F2DEDF; padding:20px 30px; margin-top:15px">
-                        <% errors.forEach(error => { %>
-                            <li><%= error.msg %></li>
-                        <% }) %>
-                    </ul>
-                <% } %>
-                  <!--/Form -->
+                <div class="col-md-6">
+                  <label class="form-label">Start Date</label>
+                  <input type="date" name="courseDetails.startDate" class="form-control">
+                </div>
+                
+                <div class="col-md-6">
+                  <label class="form-label">Level</label>
+                  <select name="courseDetails.level" class="form-select">
+                    <option value="">Select Level</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                    <option value="Advanced">Advanced</option>
+                  </select>
+                </div>
+                
+                <div class="col-md-6">
+                  <label class="form-label">Mode</label>
+                  <select name="courseDetails.mode" class="form-select">
+                    <option value="">Select Mode</option>
+                    <option value="Online">Online</option>
+                    <option value="Offline">Offline</option>
+                    <option value="Hybrid">Hybrid</option>
+                  </select>
+                </div>
+                
+                <div class="col-md-6">
+                  <label class="form-label">Fee</label>
+                  <input type="text" name="courseDetails.fee" class="form-control" placeholder="e.g., $99">
+                </div>
+                
+                <div class="col-md-6">
+                  <label class="form-label">Language</label>
+                  <input type="text" name="courseDetails.language" class="form-control" placeholder="e.g., English">
+                </div>
+                
+                <div class="col-12">
+                  <label class="form-label">Prerequisites</label>
+                  <textarea name="courseDetails.prerequisites" class="form-control" rows="2" 
+                    placeholder="Enter prerequisites, separate with commas"></textarea>
+                </div>
+                
+                <div class="col-12">
+                  <label class="form-label">Learning Outcomes</label>
+                  <textarea name="courseDetails.learningOutcomes" class="form-control" rows="3" 
+                    placeholder="Enter learning outcomes, one per line"></textarea>
+                </div>
               </div>
-          </div>
-      </div>
-  </div>
-  <%- include('footer') %>
+            </div>
 
+            <div class="mb-3">
+              <label for="image" class="form-label">Image</label>
+              <input type="file" class="form-control" id="image" name="image">
+            </div>
+            <div class="mb-3" id="courseContentUpload" style="display:none;">
+              <label for="courseContent" class="form-label">Course Content (PDF)</label>
+              <input type="file" class="form-control" id="courseContent" name="courseContent" accept="application/pdf">
+              <div class="form-text">Upload a PDF syllabus or course content to show a download link on the course page.</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="status" class="form-label">Status</label>
+              <select class="form-select" id="status" name="status" required>
+                <option value="Draft">Draft</option>
+                <option value="Publish">Publish</option>
+              </select>
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Create Post</button>
+              <a href="/admin/post" class="btn btn-secondary ms-2">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleCourseFields() {
+  const category = document.getElementById('categoryId');
+  const courseFields = document.getElementById('courseFieldsSection');
+  const courseContentUpload = document.getElementById('courseContentUpload');
+  
+  // Show course fields when "Courses" category is selected
+  const selectedOption = category.options[category.selectedIndex];
+  if (selectedOption.text.toLowerCase() === 'courses') {
+    courseFields.style.display = 'block';
+    courseContentUpload.style.display = 'block';
+  } else {
+    courseFields.style.display = 'none';
+    courseContentUpload.style.display = 'none';
+  }
+}
+
+// Run on page load in case category is pre-selected
+document.addEventListener('DOMContentLoaded', toggleCourseFields);
+</script>
+
+<%- include('../partials/footer') %>

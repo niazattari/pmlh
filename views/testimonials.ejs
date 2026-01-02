@@ -1,10 +1,10 @@
-<section class="testimonials testimonial-bg" id="testimonials">
+<section class="testimonials testimonial-bg min-vh-100 d-flex align-items-center py-5" id="testimonials">
   <div class="container">
-    <div class="row">
+    <div class="row mt-5 pt-4">
       <div class="col-lg-12">
         <div class="section-heading">
-          <h6>Testimonials</h6>
-          <h4>What They <em>Think</em></h4>
+          <h6 class="text-primary">Testimonials</h6>
+          <h4>What They <em class="text-primary">Think</em></h4>
         </div>
       </div>
       <div class="col-lg-12">
@@ -26,7 +26,7 @@
                   >
                 <% } %>
               </div>
-              <h4 class="testimonial-name">
+              <h4 class="testimonial-name text-primary">
                 <%= testimonial.name || testimonial.title %>
               </h4>
               <div class="testimonial-details">
@@ -45,117 +45,239 @@
   </div>
 </section>
 
+
 <style>
-  .testimonial-bg {
-    background: linear-gradient(120deg, #e0e7ff 0%, #f5f7ff 100%);
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-  }
+  
+/* ===========================================
+   PMLH - Testimonials Refresh (CSS-only)
+   Scoped to .testimonials / .testimonial-bg
+=========================================== */
+:root{
+  --tstl-primary: #0d6efd;     /* Bootstrap primary */
+  --tstl-accent:  #845ef7;     /* Education accent */
+  --tstl-ink:     #0b132b;     /* Headline */
+  --tstl-muted:   #6c757d;     /* Muted text */
+  --tstl-ring:    rgba(13,110,253,.22);
+}
 
-  .testimonial-bg::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: url('/assets/images/testimonial-graphic.svg') center center no-repeat;
-    background-size: 45% auto;
-    opacity: 0.13;
-    z-index: 0;
-    pointer-events: none;
-  }
+/* Section backdrop (keep your overlays, just refine gradient & padding) */
+.testimonial-bg{
+  min-height: 100vh !important;
+  padding: 110px 0 80px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #eef2ff 100%);
+  display: flex; align-items: center; position: relative;
+}
+.testimonial-bg::before{
+  content:""; position:absolute; inset:0;
+  background: url('/assets/images/testimonial-graphic.svg') center center no-repeat;
+  background-size: 42% auto; opacity:.12; z-index:0; pointer-events:none;
+}
+.testimonial-bg::after{
+  content:""; position:absolute; inset:0;
+  background: url('https://www.transparenttextures.com/patterns/hexellence.png');
+  opacity:.06; z-index:0; pointer-events:none;
+}
 
-  .testimonial-bg::after {
-    content: "";
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: url('https://www.transparenttextures.com/patterns/hexellence.png');
-    opacity: 0.07;
-    z-index: 0;
-    pointer-events: none;
-  }
+/* Keep content above background overlays */
+.testimonials .container,
+.testimonials .row,
+.testimonials .col-lg-12{ position: relative; z-index: 2; }
 
-  .testimonials .container,
-  .testimonials .row,
-  .testimonials .col-lg-12 {
-    position: relative;
-    z-index: 2;
-  }
+/* ---------- Section Heading ---------- */
+.section-heading{ margin-bottom: 3.5rem; padding-top: 1.5rem; text-align:center; }
+.section-heading h6{
+  font-size: 1.05rem; letter-spacing: .18em; font-weight: 800;
+  text-transform: uppercase; color: var(--tstl-muted) !important; margin-bottom: .75rem;
+}
+.section-heading h4{
+  font-size: 2.4rem; font-weight: 800; color: var(--tstl-ink); margin-bottom: 1rem;
+}
+.section-heading h4 em{
+  font-style: normal;
+  background: linear-gradient(90deg, var(--tstl-primary), var(--tstl-accent));
+  -webkit-background-clip: text; background-clip: text; color: transparent !important;
+}
+/* Accent underline */
+.section-heading h4::after{
+  content:""; display:block; height:4px; width:120px; margin:.6rem auto 0;
+  border-radius:8px; background: linear-gradient(90deg, var(--tstl-primary), var(--tstl-accent)); opacity:.85;
+}
 
-  .owl-testimonials {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 24px;
-  }
+/* ---------- Owl Carousel tweaks (CSS-only) ---------- */
+/* Allow Owl to control layout; avoid flex conflict */
+.owl-testimonials{ display: block !important; }
+.owl-stage-outer{ padding: 10px; }
+.owl-item{ padding: 8px; }
 
-  .owl-testimonials .testimonial-card {
-    position: relative;
-    min-height: 300px;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-    margin: 50px auto 0;
-    padding: 60px 20px 20px;
-    transition: box-shadow 0.3s, transform 0.3s;
-    border: 1px solid #dc8cdb;
-  }
+/* Dots styling: modern pills */
+.testimonials .owl-dots{
+  margin-top: 22px; display:flex; justify-content:center; gap:8px;
+}
+.testimonials .owl-dot span{
+  width: 28px; height: 8px; border-radius: 999px; background:#e9efff;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.06);
+  transition: background .2s ease, transform .2s ease;
+}
+.testimonials .owl-dot.active span{
+  background: linear-gradient(90deg, var(--tstl-primary), var(--tstl-accent));
+  transform: scale(1.1);
+}
 
-  .owl-testimonials .testimonial-card:hover {
-    box-shadow: 0 8px 32px rgba(15, 181, 19, 0.15);
-    transform: translateY(-4px) scale(1.03);
-  }
+/* ---------- Testimonial Card ---------- */
+.owl-testimonials .testimonial-card{
+  position: relative;
+  min-height: 300px; max-width: 420px;
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  background:#fff; border-radius:18px;
+  border: 1px solid rgba(0,0,0,.06);
+  box-shadow: 0 6px 26px rgba(13,110,253,.08);
+  margin: 50px auto 0; padding: 64px 20px 20px;
+  transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+  overflow: hidden;
+}
+/* Decorative top accent bar */
+.owl-testimonials .testimonial-card::before{
+  content:""; position:absolute; inset:0 auto auto 0;
+  height: 4px; width: 120px; border-radius:0 0 8px 0;
+  background: linear-gradient(90deg, var(--tstl-primary), var(--tstl-accent)); opacity:.9;
+}
+.owl-testimonials .testimonial-card:hover{
+  transform: translateY(-4px) scale(1.02);
+  border-color: #e9efff;
+  box-shadow: 0 12px 30px rgba(13,110,253,.16);
+}
 
-  .testimonial-img-wrapper {
-    position: absolute;
-    top: -50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 100px;
-    z-index: 10;
-  }
+/* ---------- Avatar wrapper & ring ---------- */
+.testimonial-img-wrapper{
+  position:absolute; top:-50px; left:50%; transform:translateX(-50%);
+  width: 100px; height: 100px; z-index: 10;
+}
+.testimonial-img-circle{
+  width: 100%; height: 100%; object-fit: cover; border-radius: 100%;
+  border: 4px solid #fff;
+  box-shadow: 0 8px 18px rgba(13,110,253,.12);
+  background:#fff; display:block;
+  position: relative;
+}
+/* Gradient ring behind avatar */
+.testimonial-img-circle::after{
+  content:""; position:absolute; inset:-6px; border-radius:inherit; z-index:-1;
+  background: conic-gradient(from 210deg, var(--tstl-primary), var(--tstl-accent), var(--tstl-primary));
+  filter: blur(6px); opacity:.35;
+}
 
-  .testimonial-img-circle {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 100%;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    background: #fff;
-    display: block;
-  }
+/* ---------- Name & subtle badge ---------- */
+.testimonial-name{
+  font-size: 1.22rem; font-weight: 800; margin-top: 62px; margin-bottom: 8px;
+  letter-spacing: .6px; color: var(--tstl-primary) !important;
+}
+/* Tiny sparkle next to name (no HTML needed) */
+.testimonial-name::after{
+  content: "\f005"; /* star icon */
+  font-family: "Font Awesome 6 Free"; font-weight: 900;
+  margin-left: .45rem; color: #f59e0b; font-size: .95rem;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.15));
+}
 
-  .testimonial-name {
-    font-size: 1.25rem;
-    color:#dc8cdb;
-    font-weight: 700;
-    margin-top: 60px;
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-  }
+/* ---------- Quote & profession ---------- */
+.testimonial-details{ margin-top:auto; padding-top: 8px; text-align:center; }
+.testimonial-details p{
+  font-size: 1.02rem; color:#444; font-style: italic;
+  min-height: 84px; margin-bottom: 10px; line-height: 1.6;
+  position: relative; padding: 0 12px;
+}
+/* Large decorative quote mark (background) */
+.testimonial-details p::before{
+  content:"\f10d"; /* fa-quote-left */
+  font-family:"Font Awesome 6 Free"; font-weight:900;
+  position:absolute; left:-2px; top:-6px; font-size: 1rem; color: #a3b1c6; opacity:.55;
+}
+.testimonial-details span{
+  font-size: .95rem; color:#6b7280; font-weight: 600;
+  background:#f1f5f9; border:1px solid #e2e8f0; border-radius:999px; padding:.35rem .75rem;
+}
 
-  .testimonial-details {
-    margin-top: auto;
-    padding-top: 10px;
-    text-align: center;
-  }
+/* ---------- Focus states (a11y) ---------- */
+.owl-testimonials .testimonial-card:focus-within{
+  outline: none; box-shadow: 0 0 0 .22rem var(--tstl-ring);
+  border-color: #cfe2ff;
+}
 
-  .testimonial-details p {
-    font-size: 1.08rem;
-    color: #444;
-    font-style: italic;
-    min-height: 80px;
-    margin-bottom: 8px;
-  }
+/* ---------- Color variety per card (CSS-only) ---------- */
+.owl-testimonials .owl-item:nth-child(6n+1) .testimonial-card::before{ background: linear-gradient(90deg,#0ea5e9,#22c55e); }
+.owl-testimonials .owl-item:nth-child(6n+2) .testimonial-card::before{ background: linear-gradient(90deg,#f59e0b,#ef4444); }
+.owl-testimonials .owl-item:nth-child(6n+3) .testimonial-card::before{ background: linear-gradient(90deg,#8b5cf6,#06b6d4); }
+.owl-testimonials .owl-item:nth-child(6n+4) .testimonial-card::before{ background: linear-gradient(90deg,#22c55e,#16a34a); }
+.owl-testimonials .owl-item:nth-child(6n+5) .testimonial-card::before{ background: linear-gradient(90deg,#ef4444,#f472b6); }
+.owl-testimonials .owl-item:nth-child(6n+6) .testimonial-card::before{ background: linear-gradient(90deg,#0d6efd,#60a5fa); }
 
-  .testimonial-details span {
-    font-size: 1rem;
-    color: #888;
+/* ---------- Responsive ---------- */
+@media (max-width: 992px){
+  .section-heading h4{ font-size: 2.1rem; }
+}
+@media (max-width: 768px){
+  .testimonial-bg{ padding: 96px 0 60px; }
+  .section-heading h4{ font-size: 1.9rem; }
+  .testimonial-details p{ font-size: 1rem; min-height: 76px; }
+  .owl-stage-outer{ padding: 6px; }
+}
+@media (max-width: 576px){
+  .testimonial-name{ font-size: 1.12rem; }
+  .testimonial-details p{ font-size: .98rem; }
+}
+
+/* ---------- Optional dark mode ---------- */
+@media (prefers-color-scheme: dark){
+  :root{ --tstl-ink:#e9edf5; --tstl-muted:#9aa4b3; --tstl-ring: rgba(102,163,255,.28); }
+  .testimonial-bg{ background: linear-gradient(135deg,#0b0e1a 0%, #0f1320 100%); }
+  .owl-testimonials .testimonial-card{
+    background: #0f1320; border-color: rgba(255,255,255,.10);
+    box-shadow: 0 12px 26px rgba(0,0,0,.45);
   }
+  .testimonial-details p{ color: #cfe3ff; }
+  .testimonial-details span{ background:#121a2b; border-color: rgba(255,255,255,.12); color:#cfe3ff; }
+  .testimonials .owl-dot span{ background: rgba(255,255,255,.20); }
+}
+
+/* Make the avatar fully visible (no clipping) */
+.owl-testimonials .testimonial-card {
+  overflow: visible;              /* was hidden; causes half-circle cut */
+  padding-top: 72px;              /* add space so content doesn't collide with avatar */
+}
+
+/* Keep the avatar centered above the card, fully round */
+.testimonial-img-wrapper {
+  top: -50px;                     /* you can tweak: -40px / -30px if you prefer lower */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;                   /* slightly larger display */
+  height: 110px;
+  z-index: 10;
+}
+
+/* Ensure true circular crop + centered image */
+.testimonial-img-circle {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1 / 1;            /* keeps it perfectly square */
+  object-fit: cover;              /* fills the circle nicely */
+  object-position: center;        /* centers the face/logo */
+  border-radius: 50% !important;  /* hard enforce full circle */
+  border: 4px solid #fff;
+  box-shadow: 0 8px 18px rgba(13,110,253,.12);
+  background: #fff;
+}
+
+/* If the glow ring was added earlier via ::after, keep it tidy */
+.testimonial-img-circle::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  z-index: -1;
+  background: conic-gradient(from 210deg, #0d6efd, #845ef7, #0d6efd);
+  filter: blur(6px);
+  opacity: .35;
+}
+
 </style>

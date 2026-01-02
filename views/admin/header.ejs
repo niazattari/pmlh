@@ -14,10 +14,41 @@
     <!-- Custom stylesheet -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/header-navbar.css">
+    <!-- Modern, professional font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        #header-admin {
+            background: linear-gradient(90deg, #0d6efd 0%, #0a58ca 100%);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+            padding: 10px 0;
+            font-family: 'Poppins', Arial, sans-serif;
+        }
+        #header-admin .logo { filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+        #admin-menubar { box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+        .admin-logout { 
+            background: rgba(255,255,255,0.15); 
+            padding: 8px 14px; 
+            border-radius: 20px; 
+            color: #fff !important;
+            font-weight: 600;
+            display: inline-flex; 
+            align-items: center;
+            gap: 6px;
+            transition: background .2s ease;
+        }
+        .admin-logout:hover { background: rgba(255,255,255,0.25); text-decoration: none; }
+        /* Navbar item icons and spacing */
+        .navbar-nav > li > a { font-family: 'Poppins', Arial, sans-serif; font-weight: 600; }
+        .navbar-nav > li > a i { margin-right: 6px; color: #0d6efd; }
+    </style>
 
 </head>
 
 <body>
+    <%- include('../partials/alerts') %>
     <!-- HEADER -->
     <div id="header-admin">
         <!-- container -->
@@ -26,12 +57,12 @@
             <div class="row">
                 <!-- LOGO -->
                 <div class="col-md-2">
-                    <a href="/admin/post"><img class="logo" src="/images/logo.png"></a>
+                    <a href="/admin/post"><img class="logo" src="/images/logo.png" style="height:64px; width:auto; display:inline-block; border:2px solid #007bff; border-radius:6px; padding:4px;" alt="PMLH"></a>
                 </div>
                 <!-- /LOGO -->
                 <!-- LOGO-Out -->
                 <div class="col-md-offset-9  col-md-1">
-                    <a href="/admin/logout" class="admin-logout">logout</a>
+                    <a href="/admin/logout" class="admin-logout"><i class="fa fa-sign-out"></i> Logout</a>
                 </div>
                 <!-- /LOGO-Out -->
             </div>
@@ -52,22 +83,24 @@
                         </div>
                         <div class="collapse navbar-collapse" id="navbar-menu">
                             <ul class="nav navbar-nav" data-in="fadeInDown" data-out="fadeOutUp">
-                                <li class="active"><a href="/admin/post" data-hover="Home">Summary <span
+                                <li class="active"><a href="/admin/summary" data-hover="Home"><i class="fa fa-tachometer"></i> Summary <span
                                             data-hover="Home"></span></a></li>
-                                <li><a href="/admin/post" data-hover="About">Posts <span data-hover="About"></span></a>
+                                <li><a href="/admin/post" data-hover="About"><i class="fa fa-file-text-o"></i> Posts <span data-hover="post"></span></a>
                                 </li>
-                                <li><a href="/admin/category" data-hover="About">Catagories <span
-                                            data-hover="About"></span></a></li>
-                                <li><a href="/admin/users" data-hover="About">Users <span data-hover="About"></span></a>
+                                <li><a href="/admin/category" data-hover="About"><i class="fa fa-tags"></i> Catagories <span
+                                            data-hover="category"></span></a></li>
+                                <li><a href="/admin/users" data-hover="About"><i class="fa fa-user"></i> Users <span data-hover="users"></span></a>
                                 </li>
-                                <li><a href="/admin/comments" data-hover="About">Comments <span
-                                            data-hover="About"></span></a></li>
-                                <li><a href="/admin/contacts" data-hover="About">Registration <span
-                                            data-hover="About"></span></a></li>
-                                <li><a href="/admin/messages" data-hover="About">Messages <span
-                                            data-hover="About"></span></a></li>
-                                <li><a href="/admin/messages" data-hover="About">Certificates <span
-                                            data-hover="About"></span></a></li>
+                                <li><a href="/admin/comments" data-hover="About"><i class="fa fa-comments-o"></i> Comments <span
+                                            data-hover="comments"></span></a></li>
+                                <li><a href="/admin/contacts" data-hover="About"><i class="fa fa-address-book"></i> Registration <span
+                                            data-hover="Registration"></span></a></li>
+                                <li><a href="/admin/messages" data-hover="About"><i class="fa fa-envelope"></i> Messages <span
+                                            data-hover="Messages"></span></a></li>
+                                <li><a href="/admin/certificates" data-hover="About"><i class="fa fa-certificate"></i> Certificates <span
+                                            data-hover="Certificates"></span></a></li>
+                                <li><a href="/admin/courses" data-hover="courses"><i class="fa fa-list-alt"></i> Courses Registration <span
+                                            data-hover="Registration"></span></a></li>
                         </div>
                     </nav>
                 </div>

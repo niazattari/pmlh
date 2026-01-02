@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
       <div class="col-lg-12 text-center mb-5">
         <h6 class="text-primary">Our Association</h6>
-        
+
         <h2 class="fw-bold">PMLH is <em class="text-primary" style="color: #dc8cdb">Associated with</em></h2>
       </div>
 
@@ -14,7 +14,7 @@
             <div class="item">
               <div class="card shadow-sm border border-light-subtle text-center p-4 h-100 association-card">
                 <h4 class="mb-3 fw-bold text-dark">
-                  <i class="fas fa-check-circle text-success me-2"></i>
+                  <i class="fas fa-check-circle text-primary me-2"></i>
                   <%= assoc.title %>
                 </h4>
                 <!-- Image area -->
@@ -23,8 +23,8 @@
                     <img src="/uploads/<%= assoc.image %>" alt="<%= assoc.title %>" class="img-fluid assoc-img">
                   </a>
                 </div>
-                <a href="<%= assoc.description %>" class="btn btn-outline-success rounded-pill mt-2" target="_blank">
-                  Visit
+                <a href="<%= assoc.description %>" class="btn btn-outline-primary btn-lg px-4" target="_blank">
+                  <i class="fas fa-globe me-2"></i>Visit
                 </a>
               </div>
             </div>
@@ -36,93 +36,277 @@
 </section>
 
 <style>
-  .testimonial-bg {
-    background: linear-gradient(120deg, #e0e7ff 0%, #f5f7ff 100%);
+  /* ================================
+   PMLH - Associations Styling
+   (CSS-only, scoped to .services)
+=================================== */
+  :root {
+    --assoc-primary: #0d6efd;
+    /* Bootstrap primary */
+    --assoc-accent: #845ef7;
+    /* Education accent (purple) */
+    --assoc-ink: #0b132b;
+    /* Headlines */
+    --assoc-muted: #6c757d;
+    /* Muted text */
+    --assoc-ring: rgba(13, 110, 253, .22);
+  }
+
+  /* Ensure background overlays are correctly positioned */
+  .services.testimonial-bg {
+    position: relative;
+  }
+
+  .services.testimonial-bg::before,
+  .services.testimonial-bg::after {
+    z-index: 0;
+  }
+
+  .services .container {
     position: relative;
     z-index: 1;
-    overflow: hidden;
   }
 
-  .testimonial-bg::before {
+  /* Section headings: polished, educational vibe */
+  .services h6.text-primary {
+    text-transform: uppercase;
+    letter-spacing: .14em;
+    font-weight: 700;
+    color: var(--assoc-muted) !important;
+    margin-bottom: .5rem !important;
+  }
+
+  .services h2 {
+    color: var(--assoc-ink);
+    font-weight: 800;
+    letter-spacing: .2px;
+    position: relative;
+    display: inline-block;
+  }
+
+  .services h2 em {
+    font-style: normal;
+    background: linear-gradient(90deg, var(--assoc-primary), var(--assoc-accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent !important;
+  }
+
+  /* Underline accent bar */
+  .services h2::after {
     content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('/assets/images/testimonial-graphic.svg') center center no-repeat;
-    background-size: 45% auto;
-    opacity: 0.13;
-    z-index: 0;
-    pointer-events: none;
+    display: block;
+    height: 4px;
+    width: 120px;
+    margin: .5rem auto 0;
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--assoc-primary), var(--assoc-accent));
+    opacity: .85;
   }
 
-  .testimonial-bg::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('https://www.transparenttextures.com/patterns/hexellence.png');
-    opacity: 0.07;
-    z-index: 0;
-    pointer-events: none;
+  /* Owl Carousel layout: let Owl control widths; add spacing via padding */
+  .services .owl-service-item {
+    display: block !important;
   }
 
-  .association-card {
+  .services .owl-stage-outer {
+    padding: 6px;
+  }
+
+  .services .owl-item {
+    padding: 8px;
+  }
+
+  /* Association card: elegant, interactive, accessible */
+  .services .association-card {
     border-radius: 18px;
     background-color: rgba(255, 255, 255, 0.95);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s;
+    border: 1px solid rgba(0, 0, 0, .06);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
     min-height: 320px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    overflow: hidden;
   }
 
-  .association-card:hover {
-    transform: translateY(-6px);
-    border-color: #dc8cdb;
-    box-shadow: 0 12px 30px rgba(13, 110, 253, 0.15);
-    background: linear-gradient(135deg, #e6ffe6 0%, #dc8cdb 100%);
-
-  }
-
-  .assoc-img {
-    height: 120px;
+  /* Decorative top accent */
+  .services .association-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto auto 0;
+    height: 4px;
     width: 120px;
-    object-fit: contain;
-    border-radius: 10px;
-    border: 1px solid #dee2e6;
-    padding: 10px;
-    background-color: #f8f9fa;
+    background: linear-gradient(90deg, var(--assoc-primary), var(--assoc-accent));
+    opacity: .9;
+    border-radius: 0 0 8px 0;
   }
 
-  .image-wrapper {
-    height: 100px;
+  .services .association-card:hover {
+    transform: translateY(-5px);
+    border-color: #e9efff;
+    box-shadow: 0 14px 32px rgba(13, 110, 253, .16);
+  }
+
+  /* Title icon + text */
+  .services .association-card h4 {
+    color: var(--assoc-ink);
+  }
+
+  .services .association-card h4 .fa-check-circle {
+    color: var(--assoc-primary) !important;
+    filter: drop-shadow(0 2px 6px rgba(13, 110, 253, .25));
+  }
+
+  /* Image wrapper: consistent size and centering */
+  .services .image-wrapper {
+    height: 120px;
+    /* slightly taller for logos */
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 
-  .btn-outline-success {
-    background: linear-gradient(90deg, #dc8cdb 0%, #007bff 100%);
-    border: none;
+  /* Logo/image treatment */
+  .services .assoc-img {
+    height: 120px;
+    width: 120px;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    background-color: #f8f9fa;
+    box-shadow: 0 8px 18px rgba(13, 110, 253, .08);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+
+  .services .association-card:hover .assoc-img {
+    transform: translateY(-2px);
+    border-color: #cfe2ff;
+    box-shadow: 0 12px 28px rgba(13, 110, 253, .12);
+  }
+
+  /* CTA button: stronger outline, hover fill */
+  .services .btn-outline-primary {
+    border-width: 2px;
+    border-color: var(--assoc-primary);
+    color: var(--assoc-primary);
+    background: linear-gradient(180deg, #ffffff, #f6f9ff);
+    border-radius: 999px;
+    padding: .55rem 1.1rem;
+    font-weight: 700;
+    transition: transform .08s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+  }
+
+  .services .btn-outline-primary:hover {
+    background: var(--assoc-primary);
     color: #fff;
-    font-weight: 600;
-    border-radius: 30px;
-    padding: 6px 22px;
-    transition: background 0.3s;
-  }
-  .btn-outline-success:hover {
-    background: linear-gradient(90deg, #007bff 0%, #dc8cdb 100%);
+    box-shadow: 0 10px 22px rgba(13, 110, 253, .22);
+    transform: translateY(-1px);
   }
 
-  .owl-service-item {
+  .services .btn-outline-primary:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 .2rem var(--assoc-ring);
+  }
+
+  /* Owl dots: professional pills */
+  .services .owl-dots {
+    margin-top: 18px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
     justify-content: center;
+    gap: 8px;
+  }
+
+  .services .owl-dot span {
+    width: 28px;
+    height: 8px;
+    border-radius: 999px;
+    background: #e9efff;
+    transition: background .2s ease, transform .2s ease;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .06);
+  }
+
+  .services .owl-dot.active span {
+    background: linear-gradient(90deg, var(--assoc-primary), var(--assoc-accent));
+    transform: scale(1.08);
+  }
+
+  /* Focus states (accessibility) for logo links */
+  .services .association-card a:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 .2rem var(--assoc-ring);
+    border-radius: 12px;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 991px) {
+    .services .association-card {
+      min-height: 300px;
+    }
+
+    .services .image-wrapper {
+      height: 110px;
+    }
+
+    .services .assoc-img {
+      height: 110px;
+      width: 110px;
+      padding: 10px;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .services h2::after {
+      width: 90px;
+    }
+
+    .services .association-card {
+      min-height: 280px;
+    }
+
+    .services .assoc-img {
+      height: 100px;
+      width: 100px;
+      padding: 8px;
+    }
+  }
+
+  /* Optional dark mode support */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --assoc-ink: #e9edf5;
+      --assoc-muted: #9aa4b3;
+      --assoc-ring: rgba(102, 163, 255, .28);
+    }
+
+    .services .association-card {
+      background-color: rgba(16, 21, 35, .92);
+      border-color: rgba(255, 255, 255, .08);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, .45);
+    }
+
+    .services .assoc-img {
+      background-color: #121828;
+      border-color: rgba(255, 255, 255, .12);
+    }
+
+    .services .btn-outline-primary {
+      background: linear-gradient(180deg, #111933, #0b1020);
+      color: #9ec1ff;
+      border-color: rgba(158, 193, 255, .45);
+    }
+
+    .services .btn-outline-primary:hover {
+      background: linear-gradient(180deg, #2e7bff, var(--assoc-primary));
+      color: #fff;
+    }
+
+    .services .owl-dot span {
+      background: rgba(255, 255, 255, .18);
+    }
   }
 </style>
 
@@ -142,6 +326,8 @@
       margin: 20,
       autoplay: true,
       autoplayTimeout: 4000,
+      autoplayHoverPause: true,   // pause when hovering
+      smartSpeed: 650,            // smoother slide animation
       dots: true,
       nav: false,
       responsive: {
@@ -150,5 +336,6 @@
         992: { items: 3 }
       }
     });
+
   });
 </script>

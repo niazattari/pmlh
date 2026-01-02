@@ -17,13 +17,13 @@
         <h4>Recent Posts</h4>
 
         <% posts.forEach((post, i)=> { %>
-            <% if ((post.category.name==='Courses' || post.category.name==='Webinar' ) && i < 4) { %>
+            <% if (post.category.name==='Courses' ) { %>
                 <div class="recent-post">
-                    <a class="post-img" href="/course/single/<%= post._id %>">
+                    <a class="post-img" href="/site/single/<%= post._id %>">
                         <img src="/uploads/<%= post.image %>" alt="" />
                     </a>
                     <div class="post-content">
-                        <h5><a href="/course/single/<%= post._id %>">
+                        <h5><a href="/site/single/<%= post._id %>">
                                 <%= post.title %>
                             </a></h5>
                         <span>
@@ -36,7 +36,7 @@
                             <i class="fa fa-calendar" aria-hidden="true"></i>
                             <%= post.formattedDate %>
                         </span>
-                        <a class="read-more" href="/course/single/<%= post._id %>">read more</a>
+                        <a class="read-more" href="/site/single/<%= post._id %>">read more</a>
                     </div>
                 </div>
                 <% } %>
@@ -44,4 +44,348 @@
 
     </div>
     <!-- /recent posts box -->
+
+    <% if (typeof singlePost !== 'undefined' && singlePost && singlePost.user && singlePost.user.profileImage) { %>
+        <div class="instructor-card">
+            <div class="card-header">
+                <i class="fa fa-id-card-o me-1"></i> Instructor
+                <img src="/images/logo.png" alt="brand" class="ins-header-logo" onerror="this.onerror=null;this.src='/images/pmlh2.png'">
+            </div>
+            <div class="card-body">
+                <span class="brand-badge" aria-hidden="true">
+                  <img src="/images/logo.png" alt="brand" onerror="this.onerror=null;this.src='/images/pmlh2.png'">
+                </span>
+                <img src="/uploads/<%= singlePost.user.profileImage %>" alt="Instructor" class="passport" />
+                <div class="name"><%= singlePost.user.username %></div>
+            </div>
+        </div>
+    <% } %>
 </div>
+
+<style>
+    /* ===========================================
+   PMLH – Sidebar Styling (CSS-only, scoped)
+   Author: Niaz x Copilot
+=========================================== */
+    :root {
+        --sb-primary: #0d6efd;
+        /* brand primary (Bootstrap blue) */
+        --sb-accent: #845ef7;
+        /* education accent (purple)      */
+        --sb-ink: #0b132b;
+        /* headlines / strong text        */
+        --sb-muted: #6b7280;
+        /* muted text                     */
+        --sb-ring: rgba(13, 110, 253, .22);
+        /* focus ring                 */
+    }
+
+    /* Base container */
+    #sidebar {
+        position: relative;
+        padding-top: .25rem;
+    }
+
+    /* ---------- Section headings ---------- */
+    #sidebar .search-box-container h4,
+    #sidebar .recent-post-container h4 {
+        color: var(--sb-ink);
+        font-weight: 800;
+        letter-spacing: .2px;
+        margin-bottom: .75rem;
+        position: relative;
+    }
+
+    #sidebar .search-box-container h4::after,
+    #sidebar .recent-post-container h4::after {
+        content: "";
+        display: block;
+        height: 3px;
+        width: 90px;
+        margin-top: .4rem;
+        border-radius: 6px;
+        background: linear-gradient(90deg, var(--sb-primary), var(--sb-accent));
+        opacity: .85;
+    }
+
+    /* ---------- Search card ---------- */
+    #sidebar .search-box-container {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, .06);
+        border-radius: 14px;
+        padding: 14px;
+        box-shadow: 0 8px 22px rgba(13, 110, 253, .10);
+        margin-bottom: 1.25rem;
+    }
+
+    /* Input group & field */
+    #sidebar .search-post .input-group {
+        align-items: stretch;
+    }
+
+    #sidebar .search-post .form-control {
+        border-radius: 10px 0 0 10px;
+        border: 1px solid rgba(0, 0, 0, .12);
+        padding: .55rem .75rem;
+        transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+    }
+
+    #sidebar .search-post .form-control::placeholder {
+        color: #8b97a5;
+    }
+
+    #sidebar .search-post .form-control:focus {
+        border-color: var(--sb-primary);
+        box-shadow: 0 0 0 .22rem var(--sb-ring);
+        outline: none;
+        background: #fcfdff;
+    }
+
+    /* Search button (keep .btn-danger but make it premium) */
+    #sidebar .search-post .btn-danger {
+        border-radius: 0 10px 10px 0;
+        border: 1px solid #f06572;
+        background: linear-gradient(180deg, #f06572, #dc3545);
+        color: #fff;
+        font-weight: 700;
+        padding: .55rem .9rem;
+        box-shadow: 0 8px 18px rgba(220, 53, 69, .20);
+        transition: transform .06s ease, box-shadow .18s ease, filter .18s ease;
+    }
+
+    #sidebar .search-post .btn-danger:hover {
+        filter: brightness(1.05);
+        box-shadow: 0 10px 22px rgba(220, 53, 69, .28);
+    }
+
+    #sidebar .search-post .btn-danger:active {
+        transform: translateY(1px);
+    }
+
+    /* ---------- Recent posts container ---------- */
+    #sidebar .recent-post-container {
+        background: #fff;
+        border: 1px solid rgba(0, 0, 0, .06);
+        border-radius: 14px;
+        padding: 14px;
+        box-shadow: 0 8px 22px rgba(13, 110, 253, .10);
+    }
+
+    /* Each recent post card */
+    #sidebar .recent-post {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding: 10px;
+        border: 1px solid rgba(0, 0, 0, .06);
+        border-radius: 12px;
+        background: #ffffff;
+        box-shadow: 0 4px 16px rgba(13, 110, 253, .06);
+        transition: transform .18s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+        margin-bottom: 12px;
+    }
+
+    #sidebar .recent-post:hover {
+        transform: translateY(-3px);
+        border-color: #e6eeff;
+        box-shadow: 0 12px 26px rgba(13, 110, 253, .14);
+        background: #fcfdff;
+    }
+
+    /* Thumbnail */
+    #sidebar .recent-post .post-img {
+        display: block;
+        width: 90px;
+        min-width: 90px;
+    }
+
+    #sidebar .recent-post .post-img img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 0, 0, .08);
+        box-shadow: 0 6px 12px rgba(13, 110, 253, .08);
+        transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    #sidebar .recent-post:hover .post-img img {
+        transform: translateY(-2px);
+        border-color: #cfe2ff;
+        box-shadow: 0 10px 18px rgba(13, 110, 253, .12);
+    }
+
+    /* Content area */
+    #sidebar .recent-post .post-content {
+        flex: 1 1 auto;
+    }
+
+    /* Title link */
+    #sidebar .recent-post .post-content h5 {
+        margin: 0 0 6px 0;
+        font-size: 1rem;
+        line-height: 1.35;
+        font-weight: 800;
+    }
+
+    #sidebar .recent-post .post-content h5 a {
+        color: var(--sb-ink);
+        text-decoration: none;
+        transition: color .15s ease;
+    }
+
+    #sidebar .recent-post .post-content h5 a:hover {
+        color: var(--sb-primary);
+    }
+
+    /* Meta pills (category + date) */
+    #sidebar .recent-post .post-content span {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        margin-right: .35rem;
+        margin-bottom: .25rem;
+        font-size: .85rem;
+        color: #334155;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        padding: .25rem .5rem;
+        border-radius: 999px;
+        font-weight: 600;
+    }
+
+    #sidebar .recent-post .post-content span i {
+        color: var(--sb-primary);
+    }
+
+    #sidebar .recent-post .post-content span a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    #sidebar .recent-post .post-content span a:hover {
+        text-decoration: underline;
+    }
+
+    /* Read more link */
+    #sidebar .recent-post .read-more {
+        display: inline-flex;
+        align-items: center;
+        gap: .35rem;
+        font-weight: 700;
+        color: var(--sb-primary);
+        text-decoration: none;
+        margin-top: .35rem;
+        transition: color .15s ease, transform .15s ease;
+        text-transform: capitalize;
+    }
+
+    #sidebar .recent-post .read-more::after {
+        content: "→";
+        font-weight: 900;
+        transition: transform .15s ease;
+    }
+
+    #sidebar .recent-post .read-more:hover {
+        color: #1a73ff;
+    }
+
+    #sidebar .recent-post .read-more:hover::after {
+        transform: translateX(2px);
+    }
+
+    /* ---------- Responsive tweaks ---------- */
+    @media (max-width: 576px) {
+        #sidebar .recent-post {
+            padding: 8px;
+        }
+
+        #sidebar .recent-post .post-img,
+        #sidebar .recent-post .post-img img {
+            width: 80px;
+            min-width: 80px;
+            height: 80px;
+        }
+    }
+
+    /* ---------- Optional dark mode ---------- */
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --sb-ink: #e9edf5;
+            --sb-muted: #9aa4b3;
+            --sb-ring: rgba(102, 163, 255, .28);
+        }
+
+        #sidebar .search-box-container,
+        #sidebar .recent-post-container {
+            background: #0f1320;
+            border-color: rgba(255, 255, 255, .10);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, .45);
+        }
+
+        #sidebar .search-post .form-control {
+            background: #0b1020;
+            color: #e9edf5;
+            border-color: rgba(255, 255, 255, .14);
+        }
+
+        #sidebar .search-post .form-control::placeholder {
+            color: #7b8694;
+        }
+
+        #sidebar .recent-post {
+            background: #0f1320;
+            border-color: rgba(255, 255, 255, .10);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, .45);
+        }
+
+        #sidebar .recent-post .post-img img {
+            border-color: rgba(255, 255, 255, .12);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, .50);
+        }
+
+        #sidebar .recent-post .post-content span {
+            background: #121a2b;
+            border-color: rgba(255, 255, 255, .12);
+            color: #cfe3ff;
+        }
+    }
+</style>
+<style>
+    /* Instructor passport card (right sidebar) */
+    #sidebar .instructor-card{
+        background:#fff; border:1px solid rgba(0,0,0,.06); border-radius:14px;
+        box-shadow:0 10px 26px rgba(13,110,253,.12); margin-top:1.25rem; overflow:hidden;
+    }
+    #sidebar .instructor-card .card-header{
+        display:flex; align-items:center; gap:.5rem;
+        font-weight:800; letter-spacing:.2px; background:#f8fafc; padding:.6rem .9rem;
+        border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    #sidebar .instructor-card .ins-header-logo{ margin-left:auto; height:22px; width:auto; filter: drop-shadow(0 1px 2px rgba(0,0,0,.15)); }
+    #sidebar .instructor-card .card-body{ padding: .9rem; text-align:center; position:relative; }
+    #sidebar .instructor-card .brand-badge{
+      position:absolute; top:10px; right:10px; width:34px; height:34px; border-radius:50%;
+      background:#ffffff; border:1px solid rgba(0,0,0,.08); display:grid; place-items:center;
+      box-shadow:0 8px 18px rgba(13,110,253,.12);
+    }
+    #sidebar .instructor-card .brand-badge img{ width:70%; height:70%; object-fit:contain; }
+    #sidebar .instructor-card img.passport{
+        width: 60%; /* larger for visibility */
+        min-width: 140px; /* ensure readable size */
+        max-width: 220px;
+        aspect-ratio: 4 / 5; height: auto;
+        object-fit: cover; border-radius: 12px;
+        border:1px solid rgba(0,0,0,.08); box-shadow:0 10px 22px rgba(13,110,253,.16);
+        display:block; margin: .35rem auto .6rem auto; background:#fff;
+    }
+    #sidebar .instructor-card .name{ font-weight:800; color:#0b132b; }
+
+    @media (prefers-color-scheme: dark){
+        #sidebar .instructor-card{ background:#0f1320; border-color: rgba(255,255,255,.10); box-shadow:0 12px 26px rgba(0,0,0,.45); }
+        #sidebar .instructor-card .card-header{ background:#0f1320; border-bottom-color: rgba(255,255,255,.10); }
+        #sidebar .instructor-card .brand-badge{ background:#0b1020; border-color: rgba(255,255,255,.14); box-shadow:0 8px 18px rgba(0,0,0,.55); }
+        #sidebar .instructor-card img.passport{ border-color: rgba(255,255,255,.12); box-shadow:0 10px 22px rgba(0,0,0,.55); }
+        #sidebar .instructor-card .name{ color:#e9edf5; }
+    }
+</style>

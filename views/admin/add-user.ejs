@@ -7,11 +7,11 @@
               </div>
               <div class="col-md-offset-3 col-md-6">
                   <!-- Form Start -->            
-                  <form  action="/admin/users" method ="POST" autocomplete="off">
+                  <form  action="/admin/users" method ="POST" enctype="multipart/form-data" autocomplete="off">
                     
                       <div class="form-group">
                           <label>User Name</label>
-                          <input type="text" name="username" class="form-control" placeholder="Username"  maxlength="10" required>
+                          <input type="text" name="username" class="form-control" placeholder="Username"  maxlength="30" required>
                           
                         </div>
                       <div class="form-group">
@@ -24,6 +24,11 @@
                           <input type="password" name="password" class="form-control" placeholder="Password" required>
                           
                         </div>
+                                            <div class="form-group">
+                                                    <label>Profile Image (Instructor Photo)</label>
+                                                    <input type="file" name="profileImage" class="form-control" accept="image/*">
+                                                    <small class="form-text text-muted">This image will be shown as the course instructor photo.</small>
+                                                </div>
                       
                         
                       <input type="submit"  name="save" class="btn btn-primary" value="Save" required />

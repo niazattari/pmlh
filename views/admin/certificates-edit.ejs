@@ -1,0 +1,66 @@
+<%- include('header') %>
+
+<div class="container mt-5">
+  <h2>Verify Your Certificate</h2>
+  <p class="text-muted">Enter your name and email to verify.</p>
+
+  <!-- Verification Form -->
+  <form action="/verify" method="post" class="mb-4">
+    <div class="row g-2">
+      <div class="col-md-5">
+        <input name="name" class="form-control" placeholder="Full Name" required>
+      </div>
+      <div class="col-md-5">
+        <input name="email" class="form-control" placeholder="Email Address" required>
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100">Verify</button>
+      </div>
+    </div>
+  </form>
+
+  <% if (typeof notFound !== 'undefined' && notFound) { %>
+    <div class="alert alert-danger">No certificate found with provided details.</div>
+  <% } %>
+
+  <% if (certificate) { %>
+    <div class="card shadow-lg p-4">
+      <h3>Certificate Verified ✔</h3>
+
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <p><strong>Name:</strong> <%= certificate.name %></p>
+          <p><strong>Email:</strong> <%= certificate.email %></p>
+          <p><strong>Batch No:</strong> <%= certificate.batchNo %></p>
+          <p><strong>Certificate #:</strong> <%= certificate.certificateNumber %></p>
+          <p><strong>Completion Date:</strong> 
+            <%= certificate.dateOfCompletion ? new Date(certificate.dateOfCompletion).toLocaleDateString() : '-' %>
+          </p>
+
+          <p><strong>Verification Link:</strong><br>
+            <a href="<%= certificate.verificationLink %>">
+              <%= certificate.verificationLink %>
+            </a>
+          </p>
+
+          <p><strong>QR Code (Scan to Verify):</strong></p>
+          <img src="<%= certificate.qrCode %>" style="max-width:180px;" class="border p-2">
+        </div>
+
+        <div class="col-md-6 text-center">
+          <h5>Certificate Image</h5>
+
+          <% if (certificate.certificateFile) { %>
+            <img src="/uploads/<%= certificate.certificateFile %>" 
+                 class="img-fluid border"
+                 style="max-height: 400px; object-fit: contain;">
+          <% } else { %>
+            <p class="text-danger">No certificate file uploaded.</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  <% } %>
+</div>
+
+<%- include('footer') %>

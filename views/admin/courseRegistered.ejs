@@ -1,0 +1,149 @@
+<%- include('header.ejs', { page: 'user' }) %>
+
+<div class="container mt-4">
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="fw-bold m-0">Course Registrations</h2>
+    <div class="d-flex gap-2">
+      <a href="/admin/add-user" class="btn btn-primary"><i class="fa fa-plus-circle me-1"></i> Add User</a>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h5 class="card-title m-0">All Registrations</h5>
+        <div class="input-group" style="max-width: 320px;">
+          <span class="input-group-text"><i class="fa fa-search"></i></span>
+          <input type="text" class="form-control" placeholder="Search by name, email, course, or status" oninput="filterRegs(this.value)">
+        </div>
+      </div>
+
+      <% if (!registrations || registrations.length === 0) { %>
+        <div class="alert alert-info mb-0">No course registrations found.</div>
+      <% } else { %>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle" id="regTable">
+            <thead class="table-light">
+              <tr>
+                <th style="width:48px">#</th>
+                <th>Registrant</th>
+                <th>Course</th>
+                <th>Payment</th>
+                <th>Registered</th>
+                <th>Status</th>
+                <th style="width:280px">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% registrations.forEach(function(r, idx){ %>
+                <tr>
+                  <td class="text-muted"><%= (offset || 0) + idx + 1 %></td>
+                  <td>
+                    <div class="fw-semibold"><%= r.registrantName || (r.user && (r.user.username || r.user.name)) || 'Guest' %></div>
+                    <div class="small text-muted"><%= r.registrantEmail || (r.user && r.user.email) || '' %></div>
+                  </td>
+                  <td><%= r.course ? r.course.title : 'Unknown Course' %></td>
+                  <td>
+                    <div><%= r.paymentMethod || 'N/A' %></div>
+                    <% if (r.paymentProof) { %>
+                      <a href="/uploads/<%= r.paymentProof %>" target="_blank">View Proof</a>
+                    <% } %>
+                  </td>
+                  <td><%= new Date(r.registrationDate).toLocaleString() %></td>
+                  <td>
+                    <span class="badge bg-<%= (r.status === 'confirmed' || r.status === 'completed') ? 'success' : r.status === 'pending' ? 'warning' : 'secondary' %>"><%= r.status %></span>
+                    <% if (r.status === 'completed' && r.certificate) { %>
+                      <div class="mt-1 small">
+                        <a href="/uploads/<%= r.certificate %>" target="_blank">View Certificate</a>
+                      </div>
+                    <% } %>
+                  </td>
+                  <td>
+                    <form action="/admin/registrations/<%= r._id %>/status" method="POST" enctype="multipart/form-data" class="row gx-2 gy-2 align-items-center" onsubmit="return validateCertUpload(this)">
+                      <div class="col-auto">
+                        <select name="status" class="form-select form-select-sm" onchange="toggleCert(this)" data-has-cert="<%= !!r.certificate %>">
+                          <option value="pending" <%= r.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                          <option value="confirmed" <%= r.status === 'confirmed' ? 'selected' : '' %>>Confirmed</option>
+                          <option value="completed" <%= r.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                          <option value="deleted" <%= r.status === 'deleted' ? 'selected' : '' %>>Deleted</option>
+                        </select>
+                      </div>
+                      <div class="col" style="min-width:180px; display:<%= r.status === 'completed' ? 'block' : 'none' %>">
+                        <input type="file" name="certificate" accept="application/pdf,image/*" class="form-control form-control-sm" title="Upload certificate when marking completed">
+                      </div>
+                      <div class="col-auto">
+                        <button class="btn btn-sm btn-primary" type="submit">Update</button>
+                      </div>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="d-flex justify-content-center mt-3">
+          <ul class='pagination admin-pagination mb-0'>
+            <% if (typeof currentPage !== 'undefined' && currentPage > 1) { %>
+              <li>
+                <a href="/admin/courses?page=<%= currentPage - 1 %>">Previous</a>
+              </li>
+            <% } %>
+            <% if (typeof totalPages !== 'undefined' && totalPages > 1) { %>
+              <% for (let i=1; i <= totalPages; i++) { %>
+                <li class="<%= currentPage === i ? 'active' : '' %>">
+                  <a href="/admin/courses?page=<%= i %>"><%= i %></a>
+                </li>
+              <% } %>
+            <% }  %>
+            <% if (typeof currentPage !== 'undefined' && currentPage < totalPages) { %>
+              <li><a href="/admin/courses?page=<%= currentPage + 1 %>">Next</a></li>
+            <% } %>
+          </ul>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include('footer.ejs') %>
+
+<script>
+function filterRegs(q){
+  const query = (q||'').toLowerCase();
+  const rows = document.querySelectorAll('#regTable tbody tr');
+  rows.forEach(r => {
+    const text = r.innerText.toLowerCase();
+    r.style.display = text.includes(query) ? '' : 'none';
+  });
+}
+
+function toggleCert(selectEl){
+  const row = selectEl.closest('tr');
+  const fileCol = row.querySelector('input[name="certificate"]').closest('.col');
+  if(selectEl.value === 'completed'){
+    fileCol.style.display = 'block';
+  } else {
+    fileCol.style.display = 'none';
+  }
+}
+
+function validateCertUpload(form){
+  const status = form.querySelector('select[name="status"]').value;
+  if(status === 'completed'){
+    const input = form.querySelector('input[name="certificate"]');
+    if(!input || !input.files || input.files.length === 0){
+      alert('Please upload a certificate file when marking as completed.');
+      return false;
+    }
+  }
+  return true;
+}
+</script>
+
+<style>
+  .card { border:1px solid rgba(0,0,0,.06); border-radius:14px; }
+  .card-title { font-weight:800; letter-spacing:.2px; }
+  .table-hover tbody tr:hover { background:#f8fafc; }
+  .btn-primary { box-shadow:0 10px 24px rgba(13,110,253,.18); }
+</style>

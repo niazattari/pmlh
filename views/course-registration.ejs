@@ -1,0 +1,412 @@
+<%- include('header') %>
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white py-3">
+          <h4 class="mb-0">Course Registration</h4>
+        </div>
+        <div class="card-body p-4">
+          <div class="course-details mb-4">
+            <h5 class="mb-4 text-primary"><%= course.title %></h5>
+            
+            <div class="course-info">
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <p><i class="fa fa-clock-o text-success me-2"></i>Duration: <%= course.courseDetails.duration %></p>
+                  <p><i class="fa fa-calendar text-success me-2"></i>Start Date: <%= new Date(course.courseDetails.startDate).toLocaleDateString() %></p>
+                  <p><i class="fa fa-signal text-success me-2"></i>Level: <%= course.courseDetails.level %></p>
+                </div>
+                <div class="col-md-6">
+                  <p><i class="fa fa-desktop text-success me-2"></i>Mode: <%= course.courseDetails.mode %></p>
+                  <p><i class="fa fa-money text-success me-2"></i>Fee: <%= course.courseDetails.fee %></p>
+                  <p><i class="fa fa-language text-success me-2"></i>Language: <%= course.courseDetails.language %></p>
+                </div>
+              </div>
+            </div>
+
+            <form action="/course/register/<%= course._id %>" method="POST" enctype="multipart/form-data" class="mt-4">
+              <div class="alert alert-info">
+                <i class="fa fa-info-circle me-2"></i>
+                Please confirm your registration for this course
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Payment Method</label>
+                <select name="paymentMethod" class="form-select">
+                  <option value="JazzCash">JazzCash</option>
+                  <option value="EasyPaisa">EasyPaisa</option>
+                  <option value="Card">Credit / Debit Card</option>
+                  <option value="Other">Other</option>
+                </select>
+                <div class="form-text">Select how you paid the course fee.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="paymentProof" class="form-label">Upload Payment Proof (jpg, png, pdf)</label>
+                <input type="file" name="paymentProof" id="paymentProof" accept="image/*,.pdf" class="form-control">
+                <div class="form-text">Upload a screenshot or receipt of your payment.</div>
+              </div>
+              
+              <div class="mb-3">
+                <% 
+                  // Show name/email inputs only for anonymous users and only for courses
+                  // that are not MS Project (some courses accept registrations without these fields)
+                  const isMSProject = course && course.title && course.title.toLowerCase().includes('ms project');
+                %>
+                <% if (!user && !isMSProject) { %>
+                  <label for="registrantName" class="form-label">Your Name</label>
+                  <input type="text" name="registrantName" id="registrantName" class="form-control" value="<%= typeof registrantName !== 'undefined' && registrantName ? registrantName : '' %>">
+                  <label for="registrantEmail" class="form-label mt-2">Email (we will send confirmation here)</label>
+                  <input type="email" name="registrantEmail" id="registrantEmail" class="form-control" value="<%= typeof registrantEmail !== 'undefined' && registrantEmail ? registrantEmail : '' %>">
+                <% } %>
+
+                <div class="text-end mt-4">
+                  <a href="/course/<%= course._id %>" class="btn btn-secondary me-2">
+                    <i class="fa fa-arrow-left me-2"></i>Back
+                  </a>
+                  <button id="confirmBtn" type="submit" class="btn btn-success" disabled>
+                    <i class="fa fa-check-circle me-2"></i>Confirm Registration
+                  </button>
+                </div>
+              </div>
+            </form>
+            <% if (typeof success !== 'undefined' && success) { %>
+              <div class="alert alert-success mt-3"><%= success %></div>
+            <% } %>
+            <% if (typeof error !== 'undefined' && error) { %>
+              <div class="alert alert-danger mt-3"><%= error %></div>
+            <% } %>
+            <script>
+              (function(){
+                const fileInput = document.getElementById('paymentProof');
+                const confirmBtn = document.getElementById('confirmBtn');
+                const nameInput = document.getElementById('registrantName');
+                const emailInput = document.getElementById('registrantEmail');
+                const allowed = ['image/jpeg','image/png','image/jpg','application/pdf'];
+                if (!fileInput || !confirmBtn) return;
+
+                function updateButton(){
+                  const file = fileInput.files && fileInput.files[0];
+                  // require file
+                  if (!file) {
+                    confirmBtn.disabled = true;
+                    return;
+                  }
+                  if (allowed.indexOf(file.type) === -1) {
+                    confirmBtn.disabled = true;
+                    alert('Invalid file type. Only JPG, PNG or PDF are allowed.');
+                    fileInput.value = '';
+                    return;
+                  }
+                  // Optional: limit to 5MB
+                  const maxSize = 5 * 1024 * 1024;
+                  if (file.size > maxSize) {
+                    alert('File too large. Maximum 5MB allowed.');
+                    fileInput.value = '';
+                    confirmBtn.disabled = true;
+                    return;
+                  }
+
+                  // if user is not logged in, require name & email
+                  if (nameInput || emailInput) {
+                    const nameVal = nameInput ? nameInput.value.trim() : '';
+                    const emailVal = emailInput ? emailInput.value.trim() : '';
+                    // simple email check
+                    const emailOk = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailVal);
+                    if (!nameVal || !emailOk) {
+                      confirmBtn.disabled = true;
+                      return;
+                    }
+                  }
+
+                  confirmBtn.disabled = false;
+                }
+
+                fileInput.addEventListener('change', updateButton);
+                if (nameInput) nameInput.addEventListener('input', updateButton);
+                if (emailInput) emailInput.addEventListener('input', updateButton);
+                // ensure initial state
+                updateButton();
+              })();
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('footer') %>
+
+<style>
+  
+/* ===========================================
+   PMLH – Course Registration (professional)
+   Scoped to .card/.course-details within this page
+=========================================== */
+:root{
+  --cr-primary: #0d6efd;      /* brand primary */
+  --cr-success: #22c55e;      /* success green */
+  --cr-accent:  #845ef7;      /* education accent */
+  --cr-ink:     #0b132b;      /* headline text */
+  --cr-muted:   #6b7280;      /* muted text */
+  --cr-ring:    rgba(13,110,253,.22); /* focus ring */
+}
+
+/* Page spacing */
+.container.my-5{
+  padding-top: clamp(10px, 2vw, 14px);
+}
+
+/* Card polish */
+.card.shadow{
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(13,110,253,.10) !important;
+  overflow: hidden;
+  position: relative;
+}
+.card.shadow::before{
+  content:"";
+  position:absolute; inset:0 auto auto 0;
+  height: 4px; width: 140px;
+  background: linear-gradient(90deg, var(--cr-primary), var(--cr-accent));
+  border-radius: 0 0 8px 0;
+  opacity:.92; z-index: 2;
+}
+
+/* Header strip refinement */
+.card-header.bg-success{
+  background: linear-gradient(180deg, #22c55e, #16a34a) !important;
+  border-bottom: 1px solid rgba(255,255,255,.25);
+}
+.card-header h4{
+  font-weight: 800; letter-spacing: .2px;
+}
+
+/* Course title & info layout */
+.course-details h5{
+  font-weight: 800;
+  color: var(--cr-primary) !important;
+}
+.course-info p{
+  margin-bottom: .35rem;
+  color: #334155;
+  font-weight: 600;
+  display: flex; align-items: center;
+}
+/* Icons -> circular badges */
+.course-info p i.fa{
+  display:inline-grid; place-items:center;
+  width: 28px; height: 28px; min-width:28px;
+  margin-right: .5rem;
+  color:#fff !important;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--cr-primary), var(--cr-accent));
+  box-shadow: 0 6px 14px rgba(13,110,253,.18);
+}
+/* Keep success color for the header group if desired */
+.course-info p i.fa.text-success{
+  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+}
+
+/* Alerts */
+.alert.alert-info{
+  border-radius: 12px;
+  border: 1px solid #cfe2ff;
+  background: #eef6ff;
+  color: #0b3b83;
+  box-shadow: 0 6px 16px rgba(207,226,255,.35);
+}
+
+/* Labels */
+.form-label{
+  font-weight: 800;
+  color: var(--cr-ink);
+}
+
+/* Inputs/selects */
+.form-control,
+.form-select{
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 12px;
+  padding: .6rem .75rem;
+  background:#fff;
+  color:#111827;
+  transition: border-color .15s ease, box-shadow .15s ease, background-color .15s ease;
+}
+.form-control::placeholder{ color:#8b97a5; }
+.form-control:hover,
+.form-select:hover{
+  border-color: rgba(0,0,0,.22);
+  background:#fcfdff;
+}
+.form-control:focus,
+.form-select:focus{
+  outline:none;
+  border-color: var(--cr-primary);
+  box-shadow: 0 0 0 .22rem var(--cr-ring);
+}
+
+/* Payment Method: show selected brand icon (set via JS as CSS var) */
+form select[name="paymentMethod"]{
+  background-image: var(--pay-icon-url, none);
+  background-repeat: no-repeat;
+  background-position: right .6rem center;
+  background-size: 24px 24px;
+  padding-right: 2.2rem; /* room for icon */
+}
+
+/* Payment Proof: style file selector button */
+#paymentProof.form-control{ padding: .45rem .6rem; }
+#paymentProof::file-selector-button{
+  margin-right: .7rem;
+  padding: .45rem .7rem;
+  border: 1px solid rgba(13,110,253,.35);
+  border-radius: 10px;
+  background: linear-gradient(180deg, #ffffff, #f5f9ff);
+  color: var(--cr-primary);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+#paymentProof::file-selector-button:hover{
+  background: #eef5ff;
+  border-color: var(--cr-primary);
+}
+/* Small icon hint inside the input (PDF/image) */
+#paymentProof{
+  background-image: url('/assets/icons/file-upload.svg');
+  background-repeat: no-repeat;
+  background-position: right .6rem center;
+  background-size: 22px 22px;
+}
+
+/* Name/Email fields: subtle leading icons (no markup change) */
+#registrantName{
+  background-image: url('/assets/icons/user.svg');
+  background-repeat: no-repeat;
+  background-position: .6rem center;
+  background-size: 18px 18px;
+  padding-left: 2rem;
+}
+#registrantEmail{
+  background-image: url('/assets/icons/email.svg');
+  background-repeat: no-repeat;
+  background-position: .6rem center;
+  background-size: 18px 18px;
+  padding-left: 2rem;
+}
+
+/* Buttons */
+.btn-secondary{
+  border: 1px solid #64748b;
+  border-radius: 12px;
+  font-weight: 800;
+  background: linear-gradient(180deg, #f8fafc, #edf2f7);
+  color:#0b132b;
+  transition: transform .08s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+}
+.btn-secondary:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(100,116,139,.28);
+}
+
+.btn-success{
+  border: 1px solid #16a34a;
+  border-radius: 12px;
+  font-weight: 800;
+  background: linear-gradient(180deg, #22c55e, #16a34a);
+  box-shadow: 0 8px 18px rgba(34,197,94,.22);
+  transition: transform .08s ease, box-shadow .18s ease, filter .18s ease;
+}
+.btn-success:hover{
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(34,197,94,.30);
+}
+.btn-success:disabled{
+  filter: grayscale(.35) brightness(.96);
+  cursor: not-allowed;
+}
+
+/* Row spacing */
+.row.g-3 > [class^="col-"],
+.row.g-3 > [class*=" col-"]{ margin-top: .1rem; }
+
+/* Keyboard focus ring */
+.card a:focus-visible,
+.card .btn:focus-visible,
+.card .form-control:focus-visible,
+.card .form-select:focus-visible{
+  outline: none;
+  box-shadow: 0 0 0 .22rem var(--cr-ring);
+  border-radius: 10px;
+}
+
+/* Success & error flash messages (already in your EJS) */
+.alert.alert-success{
+  border-radius: 12px; border: 1px solid #bbf7d0;
+  background: #f0fdf4; color: #065f46;
+  box-shadow: 0 6px 16px rgba(187,247,208,.35);
+}
+.alert.alert-danger{
+  border-radius: 12px; border: 1px solid #fecaca;
+  background: #fff1f2; color: #7f1d1d;
+  box-shadow: 0 6px 16px rgba(254,202,202,.35);
+}
+
+/* Responsive */
+@media (max-width: 576px){
+  .course-info p i.fa{ width:24px; height:24px; }
+}
+
+/* Optional dark mode */
+@media (prefers-color-scheme: dark){
+  :root{ --cr-ink:#e9edf5; --cr-muted:#9aa4b3; --cr-ring: rgba(102,163,255,.28); }
+  .card.shadow{
+    background:#0f1320; border-color: rgba(255,255,255,.10);
+    box-shadow: 0 12px 30px rgba(0,0,0,.45) !important;
+  }
+  .course-info p{ color:#cfe3ff; }
+  .form-control,
+  .form-select{
+    background:#0b1020; color:#e9edf5; border-color: rgba(255,255,255,.14);
+  }
+  .form-control::placeholder{ color:#7b8694; }
+  .btn-secondary{ background: linear-gradient(180deg,#111933,#0b1020); color:#e9edf5; border-color:#64748b; }
+}
+
+</style>
+
+
+<!-- ...your card & form markup above... -->
+
+<script>
+  (function(){
+    const select = document.querySelector('select[name="paymentMethod"]');
+    if (!select) return;
+
+    // Map payment methods to small logos (update paths to your assets)
+    const logos = {
+      'JazzCash': '/brands/jazzcash.png',
+      'EasyPaisa': '/brands/easypaisa.jpeg',
+      'Card': '/brands/card.jpeg',
+      'Other': '/icons/wallet.svg'
+    };
+
+    function setIcon(){
+      const val = select.value;
+      const url = logos[val] || logos['Other'];
+      const card = select.closest('.card');
+      if (card) card.style.setProperty('--pay-icon-url', `url("${url}")`);
+    }
+
+    select.addEventListener('change', setIcon);
+    setIcon(); // initialize on load
+  })();
+</script>
+
+<%- include('footer') %>
+

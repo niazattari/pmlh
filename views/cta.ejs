@@ -1,19 +1,107 @@
-<section class="simple-cta">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-5 offset-lg-1">
-          <div class="left-image">
-            <img src="assets/images/cta-left-image.png" alt="">
-          </div>
-        </div>
-        <div class="col-lg-5 align-self-center">
-          <h6>Get the sale right now!</h6>
-          <h4>Up to 20% OFF For 1+ courses</h4>
-          <p>Get Register yourself. Don’t Forget so You Will Never Regret.</p>
-          <div class="white-button">
-            <a href="/contact-add">Register Yourself</a>
-          </div>
+<section class="simple-cta d-flex align-items-center" id="cta">
+  <div class="container">
+    <div class="row align-items-center">
+      
+      <!-- Left Side Image -->
+      <div class="col-lg-6 text-center mb-4 mb-lg-0">
+        <div class="left-image">
+          <img src="assets/images/cta-left-image.png" alt="CTA Image" class="img-fluid cta-img">
         </div>
       </div>
+
+      <!-- Right Side Content -->
+      <div class="col-lg-6 text-center text-lg-start">
+        <h6 class="cta-subtitle">Get the sale right now!</h6>
+        <h2 class="cta-title">🎉 Up to <span>20% OFF</span> for 1+ Courses</h2>
+        <p class="cta-text">
+          Register yourself today — Don’t Forget, so You Will Never Regret 🚀
+        </p>
+        <div class="mt-4">
+          <a href="/contact-add" class="btn btn-cta">
+            <i class="fas fa-user-plus me-2"></i> Register Yourself
+          </a>
+        </div>
+      </div>
+
     </div>
-  </section>
+  </div>
+</section>
+<style>
+  .simple-cta {
+  min-height: 100vh; /* Full page height */
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #007bff 0%, #6610f2 100%);
+  color: #fff;
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Image */
+.cta-img {
+  max-height: 400px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: transform 0.4s ease;
+}
+.cta-img:hover {
+  transform: scale(1.05);
+}
+
+/* Text Styling */
+.cta-subtitle {
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #f8f9fa;
+  margin-bottom: 10px;
+}
+
+.cta-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+.cta-title span {
+  color: #ffd700; /* highlight discount */
+}
+
+.cta-text {
+  font-size: 1.1rem;
+  max-width: 480px;
+  margin: 0 auto 20px auto;
+  color: #e9ecef;
+}
+
+/* Button */
+.btn-cta {
+  background: #ffd700;
+  color: #000;
+  font-weight: 700;
+  padding: 12px 30px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+.btn-cta:hover {
+  background: #fff;
+  color: #007bff;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* Responsive Fix */
+@media (max-width: 768px) {
+  .cta-title {
+    font-size: 2rem;
+  }
+  .cta-text {
+    font-size: 1rem;
+  }
+  .cta-img {
+    max-height: 300px;
+  }
+}
+
+</style>

@@ -1,0 +1,42 @@
+<%- include('header.ejs') %>
+<div class="container mt-5">
+  <h2>Verify Certificate</h2>
+  <p class="text-muted">Enter your certificate number and optionally your name or email to confirm the certificate owner.</p>
+
+  <form action="/certificate/verify" method="post" class="mb-4">
+    <div class="row g-2 align-items-center">
+      <div class="col-md-4">
+        <input name="certificateNumber" id="certificateNumber" value="<%= typeof certificateNumber !== 'undefined' ? certificateNumber : '' %>" class="form-control" placeholder="Certificate number" required />
+      </div>
+      <div class="col-md-3">
+        <input name="name" class="form-control" placeholder="Registrant name (optional)" />
+      </div>
+      <div class="col-md-3">
+        <input name="email" class="form-control" placeholder="Registrant email (optional)" />
+      </div>
+      <div class="col-md-2">
+        <button class="btn btn-primary w-100" type="submit">Verify</button>
+      </div>
+    </div>
+  </form>
+
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+
+  <% if (result) { %>
+    <div class="card">
+      <div class="card-body">
+        <h4>Certificate: <%= result.certificateNumber %></h4>
+        <p><strong>Name:</strong> <%= result.name %></p>
+        <p><strong>Email:</strong> <%= result.email %></p>
+        <p><strong>Batch:</strong> <%= result.batchNo || '-' %></p>
+        <p><strong>Completed:</strong> <%= result.dateOfCompletion ? new Date(result.dateOfCompletion).toLocaleDateString() : '-' %></p>
+        <% if (result.certificateFile) { %>
+          <p><a href="/uploads/<%= result.certificateFile %>" target="_blank">View Certificate File</a></p>
+        <% } %>
+      </div>
+    </div>
+  <% } %>
+</div>
+<%- include('footer.ejs') %>

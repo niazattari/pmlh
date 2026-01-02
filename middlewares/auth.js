@@ -1,16 +1,15 @@
 const jwt = require('jsonwebtoken');
 
-const authenticateUser = (req, res, next) => {
+exports.isAuth = (req, res, next) => {
   const token = req.cookies.token;
-  if (!token) return res.redirect('login');
+  // Redirect to the mounted user login route
+  if (!token) return res.redirect('/user/login');
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_KEY);
     req.userId = decoded.id;
     next();
   } catch (err) {
-    return res.redirect('login');
+    return res.redirect('/user/login');
   }
 };
-
-module.exports = authenticateUser;

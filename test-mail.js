@@ -1,14 +1,17 @@
 // test-mail.js
-const transporter = require('./config/mailer');
+const mailer = require('./config/mailer');
 
-transporter.sendMail({
-  from: process.env.ADMIN_EMAIL,
-  to: process.env.ADMIN_EMAIL,
-  subject: 'Test Email',
-  text: 'This is a test email from Node.js using Gmail App Password.',
-}, (error, info) => {
-  if (error) {
-    return console.log('Error:', error);
+(async () => {
+  try {
+    const info = await mailer.sendMail({
+      from: process.env.SMTP_FROM || process.env.ADMIN_EMAIL,
+      to: process.env.ADMIN_EMAIL || process.env.SMTP_TO,
+      subject: 'Test Email',
+      text: 'This is a test email from Node.js. If transport is fallback-json, this will be logged only.',
+    });
+    console.log('Email sent:', info && (info.response || info.messageId || 'ok'));
+    console.log('Mailer mode:', mailer.mode(), '| Real:', mailer.isRealTransport());
+  } catch (err) {
+    console.error('Error:', err && err.message ? err.message : err);
   }
-  console.log('Email sent:', info.response);
-});
+})();

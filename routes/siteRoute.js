@@ -11,7 +11,7 @@ router.get('/single/:id', singlePost)
 router.get('/search', search)
 router.get('/author/:name', author)
 
-//router.get('/single/:id/comment', comment)
+// router.get('/single/:id/comment', comment)
 router.post('/single/:id', addComment)
 // router.get('//:id/comment/:id', deleteComment)
 

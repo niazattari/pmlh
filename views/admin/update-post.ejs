@@ -21,23 +21,78 @@
                             <label for="description"> Description</label>
                             <textarea name="description" id="description" class="form-control" required rows="5"><%= post.description %></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="category">Category</label>
-                            <select class="form-control" id="category" name="category">
-
-                                <% categories.forEach(category=> { %>
-                                    
-                                    <option value="<%= category._id %>" <%=category._id.toString()===post.category.toString()
-                                        ? 'selected' : '' %>
-                                        >
-                                        <%= category.name %>
-                                    </option>
-
-                                    <% }) %>
-
-
-
+                        <div class="mb-3">
+                            <label for="categoryId" class="form-label">Category</label>
+                            <select class="form-select" id="categoryId" name="categoryId" onchange="toggleCourseFields()">
+                                <% categories.forEach(function(category) { %>
+                                <option value="<%= category._id %>" 
+                                    <%= post.category.toString() === category._id.toString() ? 'selected' : '' %>>
+                                    <%= category.name %>
+                                </option>
+                                <% }); %>
                             </select>
+                        </div>
+
+                        <!-- Course Fields Section -->
+                        <div id="courseFieldsSection" style="display: none;">
+                            <hr class="my-4">
+                            <h5 class="mb-3 text-primary">Course Details</h5>
+                            
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Duration</label>
+                                    <input type="text" name="courseDetails.duration" class="form-control" 
+                                        value="<%= post.courseDetails?.duration || '' %>" placeholder="e.g., 12 Weeks">
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label class="form-label">Start Date</label>
+                                    <input type="date" name="courseDetails.startDate" class="form-control"
+                                        value="<%= post.courseDetails?.startDate ? post.courseDetails.startDate.toISOString().split('T')[0] : '' %>">
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label class="form-label">Level</label>
+                                    <select name="courseDetails.level" class="form-select">
+                                        <option value="Beginner" <%= post.courseDetails?.level === 'Beginner' ? 'selected' : '' %>>Beginner</option>
+                                        <option value="Intermediate" <%= post.courseDetails?.level === 'Intermediate' ? 'selected' : '' %>>Intermediate</option>
+                                        <option value="Advanced" <%= post.courseDetails?.level === 'Advanced' ? 'selected' : '' %>>Advanced</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label class="form-label">Mode</label>
+                                    <select name="courseDetails.mode" class="form-select">
+                                        <option value="Online" <%= post.courseDetails?.mode === 'Online' ? 'selected' : '' %>>Online</option>
+                                        <option value="Offline" <%= post.courseDetails?.mode === 'Offline' ? 'selected' : '' %>>Offline</option>
+                                        <option value="Hybrid" <%= post.courseDetails?.mode === 'Hybrid' ? 'selected' : '' %>>Hybrid</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label class="form-label">Fee</label>
+                                    <input type="text" name="courseDetails.fee" class="form-control" 
+                                        value="<%= post.courseDetails?.fee || '' %>" placeholder="e.g., $99">
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <label class="form-label">Language</label>
+                                    <input type="text" name="courseDetails.language" class="form-control"
+                                        value="<%= post.courseDetails?.language || '' %>" placeholder="e.g., English">
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label class="form-label">Prerequisites</label>
+                                    <textarea name="courseDetails.prerequisites" class="form-control" rows="2" 
+                                        placeholder="Enter prerequisites, separate with commas"><%= post.courseDetails?.prerequisites?.join(', ') || '' %></textarea>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label class="form-label">Learning Outcomes</label>
+                                    <textarea name="courseDetails.learningOutcomes" class="form-control" rows="3" 
+                                        placeholder="Enter learning outcomes, one per line"><%= post.courseDetails?.learningOutcomes?.join('\n') || '' %></textarea>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="">Post image</label>
@@ -45,6 +100,17 @@
                             <img src="/uploads/<%= post.image %>" height="150px">
                             <input type="hidden" name="image" value="">
                         </div>
+                                                <div class="form-group" id="courseContentUpload" style="display:none;">
+                                                        <label for="courseContent">Course Content (PDF)</label>
+                                                        <input type="file" id="courseContent" name="courseContent" class="form-control" accept="application/pdf">
+                                                        <% if (post.courseDetails && post.courseDetails.syllabusFile) { %>
+                                                            <div class="mt-2">
+                                                                <a href="/uploads/<%= post.courseDetails.syllabusFile %>" class="btn btn-outline-primary btn-sm" download>
+                                                                    <i class="fa fa-download me-1"></i> Current Syllabus (PDF)
+                                                                </a>
+                                                            </div>
+                                                        <% } %>
+                                                </div>
                         <input type="submit" name="status" class="btn btn-primary" value="Update" required />
                         <input type="submit" name="status" class="btn btn-primary" value="Save Draft" required/>
                     </form>
@@ -54,3 +120,23 @@
         </div>
     </div>
     <%- include('footer') %>
+
+    <script>
+    function toggleCourseFields() {
+      const category = document.getElementById('categoryId');
+      const courseFields = document.getElementById('courseFieldsSection');
+      const selectedOption = category.options[category.selectedIndex];
+            const courseContentUpload = document.getElementById('courseContentUpload');
+      
+      if (selectedOption.text.toLowerCase() === 'courses') {
+        courseFields.style.display = 'block';
+                courseContentUpload.style.display = 'block';
+      } else {
+        courseFields.style.display = 'none';
+                courseContentUpload.style.display = 'none';
+      }
+    }
+
+    // Run on page load to show fields if category is pre-selected
+    document.addEventListener('DOMContentLoaded', toggleCourseFields);
+    </script>

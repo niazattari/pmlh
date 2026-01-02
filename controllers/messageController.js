@@ -8,7 +8,7 @@ const { check, validationResult } = require("express-validator");
 const postModel = require("../models/postModel");
 const router = express.Router();
 const upload = require("../config/multer");
-const transporter = require("../config/mailer"); // import the mailer
+const mailer = require("../config/mailer"); // mailer helpers
 
 const postValidation = [
   check("name").not().isEmpty().withMessage("Name is required"),
@@ -97,12 +97,9 @@ const AddNewMessage = async (req, res) => {
     // Save message to DB
     await messageModel.create({ name, email, message, status });
 
-    // Send email to admin
-    const mailOptions = {
-      from: process.env.ADMIN_EMAIL,
-      to: process.env.ADMIN_EMAIL,
-      subject: "New Client Inquiry Received – Please Review",
-      html: `
+    // Send email to admin (best-effort)
+    const adminSubject = "New Client Inquiry Received – Please Review";
+    const adminHtml = `
     <h2>New Client Contact Notification</h2>
 
     <p>Dear Admin,</p>
@@ -131,14 +128,19 @@ const AddNewMessage = async (req, res) => {
     <p>Please log in to the admin panel to respond or take necessary action.</p>
 
     <p style="margin-top: 30px;">Best regards,<br>Your Website Notification System</p>
-  `,
-    };
+  `;
 
     try {
-      await transporter.sendMail(mailOptions);
-      console.log("Email sent successfully");
+      await mailer.notifyAdmin(adminSubject, adminHtml);
     } catch (err) {
-      console.error("Failed to send email:", err.message);
+      console.error("Failed to send admin message email:", err.message || err);
+    }
+
+    // Send acknowledgement to user (non-blocking)
+    try {
+      await mailer.sendUserMessageReceipt({ to: email, name, message, status });
+    } catch (err) {
+      console.warn("Failed to send user message receipt:", err.message || err);
     }
 
     res.redirect("/main");

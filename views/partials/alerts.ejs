@@ -1,0 +1,49 @@
+<%
+  // Combine different sources of messages: session-based `alerts`, and direct render locals like `message`, `error`, `success`.
+  let renderAlerts = [];
+  if (Array.isArray(alerts)) renderAlerts = renderAlerts.concat(alerts);
+  if (typeof message !== 'undefined' && message) renderAlerts.push({ type: 'error', msg: message });
+  if (typeof error !== 'undefined' && error) renderAlerts.push({ type: 'error', msg: error });
+  if (typeof success !== 'undefined' && success) renderAlerts.push({ type: 'success', msg: success });
+%>
+
+<div id="page-alerts" aria-live="polite" aria-atomic="true" style="position:fixed;top:12px;left:0;right:0;z-index:2000;display:flex;flex-direction:column;align-items:center;pointer-events:none;">
+  <% if (renderAlerts && renderAlerts.length) { %>
+    <% renderAlerts.forEach(a => { %>
+      <div class="alert-banner alert-<%= a.type %>" role="alert" style="pointer-events:auto;margin-top:8px;min-width:300px;max-width:90%;border-radius:6px;display:flex;align-items:center;padding:10px 14px;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,0.12);">
+        <span class="alert-icon me-2" style="font-size:18px;margin-right:8px;">
+          <% if (a.type==='success') { %>
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+          <% } else if (a.type==='error' || a.type==='danger') { %>
+            <i class="fa fa-times-circle" aria-hidden="true"></i>
+          <% } else { %>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+          <% } %>
+        </span>
+        <div class="alert-text" style="flex:1;"> <%= a.msg %> </div>
+      </div>
+    <% }) %>
+  <% } %>
+</div>
+
+<script>
+  (function(){
+    // Auto-dismiss after 5000ms
+    const banners = document.querySelectorAll('.alert-banner');
+    banners.forEach((b)=> {
+      setTimeout(()=> {
+        b.style.transition = 'opacity 300ms, transform 300ms';
+        b.style.opacity = '0';
+        b.style.transform = 'translateY(-10px)';
+        setTimeout(()=> b.remove(), 350);
+      }, 5000);
+    });
+  })();
+</script>
+
+<style>
+.alert-banner.alert-success { background:#28a745; }
+.alert-banner.alert-error, .alert-banner.alert-danger { background:#dc3545; }
+.alert-banner.alert-info { background:#17a2b8; }
+.alert-banner { color: #fff; }
+</style>
