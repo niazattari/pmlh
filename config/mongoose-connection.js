@@ -9,7 +9,11 @@ if (String(process.env.MONGODB_DEBUG || '').toLowerCase() === 'true') {
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://niazattari:Pakistan%40786@cluster0.mrodwfv.mongodb.net/pmlh?retryWrites=true&w=majority';
 
 mongoose.connect(MONGODB_URI, {
-	serverSelectionTimeoutMS: 8000,
+	serverSelectionTimeoutMS: 10000,
+	socketTimeoutMS: 45000,
+	bufferCommands: false,
+	maxPoolSize: 10,
+	minPoolSize: 2,
 })
 	.then(() => {
 		const name = mongoose.connection?.name || mongoose.connection?.db?.databaseName;
