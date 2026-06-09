@@ -76,7 +76,7 @@ app.use('/', indexRoute);
 console.log(`Mailer mode: ${mailer.mode()} | delivery=${mailer.isRealTransport() ? 'enabled' : 'disabled (fallback JSON, emails logged only)'}`);
 
 // ✅ Start Server
-app.listen(3000, () => {
-  console.log('server is running on port 3000');
-});
+// app.listen(3000, () => {
+//   console.log('server is running on port 3000');
+// });
 module.exports = app;
